@@ -4,17 +4,17 @@ import avatar from '../assets/avatar.svg'
 import unlock from '../assets/unlock.svg'
 
 
-  const Signin = () =>{
+  const Signup = () =>{
   return (
 <div>
   
-<div className='w-full h-screen  flex flex-col justify-center items-center lg:grid lg:grid-cols-2'>
+<div className='w-full h-screen  flex flex-col justify-center items-center  lg:grid-cols-2'>
        <img className='fixed hidden lg:block inset-0 h-screen object-cover  z-[-1]' src={wave} />
        <img className='hidden lg:block w-1/2 hover:scale-150 transition-all duration-500 transform mx-auto ' src={unlock} />
 
 <div className="w-1/2 h-screen flex flex-col justify-center items-center" >
-<h1 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-4'>Log In</h1>
-<h2 className='mb-20 text-gray-500 text-sm md:text-lg lg:text-lg'>Don't have an account? <a className='text-[#f9a826]' href='/signup'>Signup</a></h2>
+<h1 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-4'>Sign Up</h1>
+<h2 className='mb-20 text-gray-500 text-sm md:text-lg lg:text-lg'>Already have an account? <a className='text-[#f9a826]' href='/signin'>LogIn</a></h2>
   <form className='flex flex-col justify-center items-center'>
     <div className='flex justify-center'>
   <img className='w-md h-[125px] mb-5' src={avatar} />
@@ -60,4 +60,4 @@ import unlock from '../assets/unlock.svg'
     
   )
 }
-export default Signin;
+export default Signup;

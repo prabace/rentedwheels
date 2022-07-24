@@ -1,9 +1,14 @@
 import React from 'react'
 
+
+
+
  function About() {
+ 
   return (
-    <div>
-      <h1> About</h1> 
+    <div className='w-full h-screen justify justify-center pt-20 '>
+    <label>Check-Out</label>
+    <input className='mx-4' type='date'/>
     </div>
   )
 }
