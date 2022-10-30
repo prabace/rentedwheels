@@ -1,0 +1,14 @@
+###
+POST http://localhost:8080/addUser
+content-type: application/json
+
+{
+    "address": "kathmandu",
+    "emailAddress": "abc@gmail.com",
+    "fullName": "Ankit Khatiwada",
+    "password": "onepiece1234",
+    "phoneNumber": "9803484843",
+    "pickupOutlet": "kadaghari",
+    "admin": false,
+    "deleted": false
+}
