@@ -67,8 +67,7 @@ const Carcard = (props) => {
             <Rating name="read-only" value={props.value} readOnly />
             
             <h6 className='ml-4 text-gray-500'>{props.reviews} reviews</h6>
-            
-            {props.booked&&<h6 className=' px-2 bg-red-500 rounded-full text-white'>Booked</h6>}
+               {props.booked&&<h6 className=' px-2 bg-red-500 rounded-full text-white'>Booked</h6>}
             
           </div>
           

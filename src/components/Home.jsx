@@ -1,8 +1,26 @@
 import React from 'react'
 import sane from '../assets/sane.png'
-
+import { useEffect } from 'react';
 
 function Home() {
+
+
+  useEffect(() => {
+    async function getToken() {
+      fetch(`http://localhost:8080/api/login?username=barca123&password=123456`, {
+        method: "POST",
+        mode:'no-cors',
+        
+        
+      }).then(data=>data.json()).then(response=>console.log(response))
+
+      
+     
+
+    }
+    getToken()
+  }, [])
+
   return (
     
 
