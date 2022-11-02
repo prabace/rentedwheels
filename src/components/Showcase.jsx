@@ -14,7 +14,7 @@ function ShowCase() {
   const [value] = React.useState();
   return (
 
-    <div className=' mt-56 mx-4'>
+    <div className=' mt-56 mx-4  py-10' >
       <div className='flex flex-row justify-between'>
         <h2 className='text-3xl font-medium'>Book Your Suitable Vehicle</h2>
         <a className='text-xl flex flex-row' href='/app/cars'>View All

@@ -137,7 +137,7 @@ function Cars() {
         </div>
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 relative gap-x-8 gap-y-28 px-4 pt-12 sm:pt-20 '>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 relative gap-x-8 gap-y-28 px-4 pt-12 sm:pt-20 '>
 
         {filteredDisplay}
 

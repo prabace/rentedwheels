@@ -76,6 +76,7 @@ const Signup = ({ history }) => {
       },
       body: JSON.stringify(sendData)
     })
+    
 
     const fetchData = await response.json()
     history.push('/app/signin')

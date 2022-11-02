@@ -23,89 +23,89 @@ import { Modal } from './components/Modal';
 import { Route } from 'react-router-dom'
 import Features from './components/Features';
 import { useState } from 'react';
-
-
+import { Footer } from './components/Footer';
 
 function App() {
   return (
-    
-   
-      <div className='App'>
-       
-        <main>
-        <Route  path='/app'>
-        
+
+
+    <div className='App'>
+
+      <main>
+        <Route path='/app'>
+
           <Navbar />
-        <Route path="/app/home">
-        
-          <Home />
-
           
+          <Route path="/app/home">
 
-          <Features />
+            <Home />
 
-          <Showcase />
-       
-        
-        </Route>
-        <Route exact path="/app/signin" render={(routeProps)=>  <Signin {...routeProps} />}/>
-       
-        <Route exact path="/app/checkout" render={(routeProps)=> <Checkout {...routeProps}/>}/>        
-        <Route path="/app/signup" render={(routeProps)=> <Signup {...routeProps} />} />
-        <Route exact path="/app/about">
-        <About />
-        </Route>
-        <Route exact path="/app/book">
-        <Wheels />
-        </Route>
-        <Route exact path="/app/cars">
-        <Cars />
-        </Route>
-        <Route exact path="/app/bookings">
-        <Bookings />
-        </Route>
-        <Route exact path="/app/garage">
-        <Garage />
-        </Route>
-        <Route exact path="/app/order">
-        <Order />
-        </Route>
-        <Route exact path="/app/test">
-        <Test />
-        </Route>
+
+
+            <Features />
+
+            <Showcase />
+
+            <Footer />
+          </Route>
+          <Route exact path="/app/signin" render={(routeProps) => <Signin {...routeProps} />} />
+
+          <Route exact path="/app/checkout" render={(routeProps) => <Checkout {...routeProps} />} />
+          <Route path="/app/signup" render={(routeProps) => <Signup {...routeProps} />} />
+          <Route exact path="/app/about">
+            <About />
+          </Route>
+          <Route exact path="/app/book">
+            <Wheels />
+          </Route>
+          <Route exact path="/app/cars">
+            <Cars />
+          </Route>
+          <Route exact path="/app/bookings">
+            <Bookings />
+          </Route>
+          <Route exact path="/app/garage">
+            <Garage />
+          </Route>
+          <Route exact path="/app/order">
+            <Order />
+          </Route>
+          <Route exact path="/app/test">
+            <Test />
+          </Route>
         </Route>
         <Route exact path="/app/review">
-            <Review />
+          <Review />
+        </Route>
+       
+        <Route exact path="/app/chart">
+          <Chart />
+        </Route>
+        <Route exact path="/app/khalti">
+          <Khalti />
+        </Route>
+
+        <Route exact path="/app/addCars" render={(routeProps) => <Addcars {...routeProps} />}/>
+      
+        <Route exact path="/app/modal">
+          <Modal />
+        </Route>
+
+        <Route>
+          <Route path="/admin">
+            <Admin />
           </Route>
-          <Route exact path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route exact path="/app/chart">
-            <Chart />
-          </Route>
-          <Route exact path="/app/khalti">
-            <Khalti />
-          </Route>
-          
-          <Route exact path="/app/addCars">
-            <Addcars />
-          </Route>
-          <Route exact path="/app/modal">
-            <Modal />
-          </Route>
-        
-          <Route>
-        <Route exact path="/admin">
-          <Admin/>
+          <Route exact path="/admin/dashboard">
+          <Dashboard />
         </Route>
         </Route>
-        
-        </main>
-        
+
+      </main>
+
     </div>
 
   );
-    
+
 }
 
 export default App;

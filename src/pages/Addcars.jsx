@@ -20,13 +20,17 @@ import RemoveRoadIcon from '@mui/icons-material/RemoveRoad';
 import { Modal } from '../components/Modal';
 
 
-function Addcars() {
+function Addcars({history}) {
   const [value] = React.useState();
   const [vehicleData, setvehicleData] = useState([])
+
+
 
   //For  pop-up form
 
   const [openForm, setOpenForm] = useState(false)
+
+  
 
   useEffect(() => {
     async function getVehicles() {
@@ -47,14 +51,16 @@ function Addcars() {
 
   const display = Object.keys(
     vehicleData
-  ).map(keys => <Link to={`/checkout?id=${vehicleData[keys].id}`}><Carcard price={vehicleData[keys].vehiclePrice}
+  ).map(keys => <Carcard price={vehicleData[keys].vehiclePrice}
     type={vehicleData[keys].vehicleType}
     title={vehicleData[keys].vehicleName}
     reviews={vehicleData[keys].vehicleReview}
     value={vehicleData[keys].vehicleRating}
     id={vehicleData[keys].id}
     img={vehicleData[keys].vehicleImage}
-  /> </Link>)
+    user='admin'
+    history
+  /> )
 
 
   /*Categories.map(el =>
@@ -79,7 +85,8 @@ function Addcars() {
       title={vehicleData[keys].vehicleName}
       img={vehicleData[keys].vehicleImage}
       id={vehicleData[keys].id}
-
+      user='admin'
+      history
     />
 
   )
@@ -154,17 +161,23 @@ function Addcars() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 </button>
-                
-                <Modal open={openForm} onClose={() => setOpenForm(false)} />
-                
+               
                 </div>
 
             </div>
         </div>
+        
         {filteredDisplay}
 
       </div>
-
+      
+      {openForm&&
+      <div>
+      <Modal onClose={() => setOpenForm(false)} />
+      </div>
+      
+      }
+      
     </div>
   )
 }

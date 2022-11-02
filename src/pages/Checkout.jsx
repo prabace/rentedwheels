@@ -61,7 +61,7 @@ const Checkout = ({ location, history }) => {
     }
 
     useEffect(() => {
-        async function getVehicle() {                                                     //restrict to checkout page when search is null
+        async function getVehicle() {     //restrict to checkout page when search is null
             if (location.search == "") {
                 history.push("/app/cars")
             }
@@ -116,10 +116,10 @@ const Checkout = ({ location, history }) => {
         }
     }
     console.log(vehicleData)
-    const createBooking = async (data,evt) => {
+    const createBooking = async (evt) => {
         evt.preventDefault();
         console.log(data)
-        const uploadTask = storage.ref(`images/`).put(image);
+        const uploadTask = storage.ref(`images/${image.name}`).put(image);
         uploadTask.on(
             "state_changed",
             (snapshot) => {
@@ -156,8 +156,11 @@ const Checkout = ({ location, history }) => {
                             
                         }
                         console.log(sendData)
-                
-                        const response = await fetch('http://localhost:8080/addBooking', {
+                        
+                        const userID = window.localStorage.getItem('id')
+                        
+
+                        const response = await fetch(`http://localhost:8080/addBooking?userId=${parseInt(userID)}&vehicleId=${parseInt(location.search.slice(4))}`, { 
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -187,7 +190,7 @@ const Checkout = ({ location, history }) => {
                     <div className='mb-8 text-3xl px-28'>
                         Contact Information
                     </div>
-                    <form id="checkout-form" onSubmit={handleSubmit(createBooking)} class="w-full px-28 py-10 shadow-2xl">
+                    <form id="checkout-form" onSubmit={createBooking} class="w-full px-28 py-10 shadow-2xl">
 
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0" >
@@ -198,13 +201,10 @@ const Checkout = ({ location, history }) => {
                                     <input onChange={(evt) => handleChange(evt, 'firstName')}
                                         class="border-none w-full"
                                         type="text"
-                                        placeholder="Jane"
-                                        {...register("firstName",
-                                            { required: true })} />
+                                        placeholder="Jane"/>
+                                       
                                 </div>
-                                <div className='mb-2'>
-                                    {errors.firstName && <p className='text-red-500 italic'>Enter the first name</p>}
-                                </div>
+                               
 
                             </div>
                             <div class="w-full md:w-1/2 px-3">
@@ -217,12 +217,9 @@ const Checkout = ({ location, history }) => {
                                         class="border-none w-full"
                                         type="text"
                                         placeholder="Doe"
-                                        {...register("lastName",
-                                            { required: true })} />
+                                        />
                                 </div>
-                                <div className='mb-2'>
-                                    {errors.lastName && <p className='text-red-500 italic'>Enter the last name</p>}
-                                </div>
+                                
                             </div>
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-6">
@@ -236,13 +233,9 @@ const Checkout = ({ location, history }) => {
                                         type="text"
                                         placeholder="mike@email.com"
                                         onChange={(evt) => handleChange(evt, 'email')}
-                                        {...register("email",
-                                            {
-                                                required: true,
-                                                pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                                            })} />
+                                         />
                                 </div>
-                                {errors.email && <p className='text-red-500 italic'>Please check the Email</p>}
+                                
                             </div>
                         </div>
                         <div className='flex flex-wrap -mx-3 mb-6'>
@@ -258,18 +251,10 @@ const Checkout = ({ location, history }) => {
                                         country='np'
                                         value={phone}
                                         onChange={setPhone}
-                                        {...register("phone",
-                                            { required: true })}
-                                        inputStyle={{
-                                            background: "none",
-                                            border: "none"
-
-                                        }}
+                                       
                                     />
                                 </div>
-                                <div className='mb-2'>
-                                    {errors.phoneNumber && <p className='text-red-500 italic'>Enter the phone number</p>}
-                                </div>
+                               
                             </div>
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-6">
@@ -283,12 +268,9 @@ const Checkout = ({ location, history }) => {
                                         class="border-none w-full"
                                         type="text"
                                         placeholder="Albekerque"
-                                        {...register("city",
-                                            { required: true })} />
+ />
                                 </div>
-                                <div className='mb-2'>
-                                    {errors.city && <p className='text-red-500 italic'>Enter the city</p>}
-                                </div>
+                                
                             </div>
 
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -300,12 +282,9 @@ const Checkout = ({ location, history }) => {
                                         class="border-none w-full "
                                         type="text"
                                         placeholder="90210"
-                                        {...register("zip",
-                                            { required: true })} />
+                                        />
                                 </div>
-                                <div className='mb-2'>
-                                    {errors.zip && <p className='text-red-500 italic'>Enter the zip</p>}
-                                </div>
+                                
 
                             </div>
 

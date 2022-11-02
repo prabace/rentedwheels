@@ -36,7 +36,7 @@ const Admin = () => {
                 <h1 className="font-bold mx-4 text-3xl md:text-3xl xl:text-5xl">RENTED WHEELS.</h1>
                 <ul className="hidden lg:flex items-center">
                     <li>
-                        <Link to="/dashboard">Dashboard</Link>
+                        <Link to="/admin/dashboard">Dashboard</Link>
                     </li>
                     <li>
                         <Link to="/reviews">Reviews</Link>
@@ -47,12 +47,12 @@ const Admin = () => {
 
                 <div className="hidden lg:flex mx-16">
                     {!user && <div>
-                        <Link to="/signin">
+                        <Link to="/app/signin">
                             <button className="bg-transparent hover:bg-indigo-600 hover:text-white lg:px-8 py-3 text-black mr-4 rounded-full">
                                 Sign In
                             </button>
                         </Link>
-                        <Link to="/signup">
+                        <Link to="/app/signup">
                             <button className="px-8 py-3 rounded-full">
                                 Sign Up
                             </button>

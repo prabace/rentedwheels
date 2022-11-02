@@ -34,12 +34,7 @@ const Navbar = () => {
                     <li>
                         <Link to="/app/home">Home</Link>
                     </li>
-                    <li>
-                        <Link to="/app/about">About</Link>
-                    </li>
-                    <li>
-                        <Link to="/app/support">Support</Link>
-                    </li>
+                
                     <li>
                         <Link to="/app/cars">Garage</Link>
                     </li>
@@ -67,8 +62,8 @@ const Navbar = () => {
                         
                         <ul className={!open ? 'hidden' : 'absolute mt-3  bg-white rounded-2xl px-4 py-4'} >
                             {userEmail}
-                            <a href=""> <li className="hover:bg-gray-200  w-full">Profile</li></a>
-                            <li className="hover:bg-gray-200 w-full">My Bookings</li>
+                            
+                           <a href="http://localhost:3000/app/bookings"> <li className="hover:bg-gray-200 w-full">My Bookings</li></a>
                             <li onClick={handleLogOut} className="hover:bg-gray-200 w-full">Log Out</li>
 
 
