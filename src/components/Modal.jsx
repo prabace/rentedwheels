@@ -142,10 +142,14 @@ export const Modal = ({ onClose }) => {
 
 
     return (
-        <div className='w-[100%] h-[100%] bg-slate-200/90 flex fixed top-0 justify-center items-center z-40 left-0 overflow-scroll'>
-            <div className="w-full max-w-xs ">
+        <div className='w-[100%] h-[100%] flex fixed bg-slate-200/90  top-0 justify-center items-center overflow-scroll z-40 left-0'>
+            <div className="">
+               
+                <div className="w-[100%]">
+                <form onSubmit={handleUpload} class="bg-white shadow-md rounded px-10 py-10 w-[600px] mt-20" id="addVehicle" >
+                    <div className="-mt-4 mb-6 flex justify-end">
                 <p onClick={onClose}>X</p>
-                <form onSubmit={handleUpload} class="bg-white shadow-md rounded px-10 py-10 w-[600px] " id="addVehicle" >
+                </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" >
                             Vehicle Name
@@ -286,7 +290,8 @@ export const Modal = ({ onClose }) => {
 
                     </div>
                 </form>
-                <p class="text-center text-gray-500 text-xs">
+                </div>
+                <p class="text-center text-gray-500 text-xs mt-4">
                     &copy;2022 Rentedwheels. All rights reserved.
                 </p>
             </div>

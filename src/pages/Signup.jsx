@@ -3,10 +3,11 @@ import wave from '../assets/wave.png'
 import avatar from '../assets/avatar.svg'
 import unlock from '../assets/unlock.svg'
 import signup from '../assets/signup.svg'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { useRef } from 'react';
 import { equalsTo } from 'khalti-checkout-web';
+
 
 
 
@@ -26,6 +27,30 @@ const Signup = ({ history }) => {
   comparePassword.current=watch("password","")
  
   
+  useEffect(() => {
+    async function getToken() {
+    const response=  await fetch(`http://localhost:8080/api/login?username=barca123&password=123456`, {
+        method: "POST",
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+      },
+      
+      
+      
+      })
+
+      console.log('response', response)
+      
+      const data = await response.json()
+      console.log(data)
+      
+      window.localStorage.setItem("token",data.access_token)
+
+    }
+    getToken()
+  }, [])
+
 
   const handleChange = (evt, placeholder) => {
     switch (placeholder) {
@@ -64,17 +89,24 @@ const Signup = ({ history }) => {
       citizenshipAttachment: '',
       admin: false,
       deleted: false,
+      username: data.email.split('@')[0]
 
     }
 
 
+    const token = window.localStorage.getItem('token')
+
+    console.log(token)
 
     const response = await fetch('http://localhost:8080/addUser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(sendData)
+
+    
     })
     
 

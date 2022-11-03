@@ -24,8 +24,12 @@ function Cars() {
 
   useEffect(() => {
     async function getVehicles() {
+      const access_token = window.localStorage.getItem('user_token')
       const response = await fetch(`http://localhost:8080/getVehicles`, {
-        method: "GET"
+        method: "GET",
+        headers:{
+          'Authorization':`Bearer ${access_token}`
+        }
       });
       const data = await response.json();
 

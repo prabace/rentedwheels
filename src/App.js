@@ -26,30 +26,7 @@ import { useEffect } from 'react';
 import { Footer } from './components/Footer';
 
 function App() {
-
-  useEffect(() => {
-    async function getToken() {
-      const response = await fetch(`http://localhost:8080/api/login?username=barca123&password=123456`, {
-        method: "POST",
-        mode:'no-cors',
-        
-        body: JSON.stringify({
-          username: 'barca123',
-          password:'123456'
-        })
-      });
-      const data = await response.json();
-      
-      window.localStorage.setItem('Token',data)
-
-      console.log(data)
-     
-
-    }
-    getToken()
-  }, [])
-
-
+  
   return (
 
 

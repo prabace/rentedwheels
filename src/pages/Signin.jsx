@@ -26,7 +26,7 @@ async function setuser(usersData){
   var ret=false
   var person={}
   usersData.forEach(element => {
-    if(element.emailAddress===email && element.password===password){
+    if(element.emailAddress===email){
       person=element
       ret = true
     }else{
@@ -39,13 +39,32 @@ async function setuser(usersData){
 const checkSignIn=async(data,evt)=>{
   evt.preventDefault()
   console.log(email,password,data)
-  if(data.email!=='' && data.password!==''){
-    const response= await fetch('http://localhost:8080/getUsers',{
-      method:'GET'
-    })
-    const result= await response.json()
-    const {ret,person}=await setuser(result)
-    console.log(result)
+
+  const response1=  await fetch(`http://localhost:8080/api/login?username=${data.email.split('@')[0]}&password=${data.password}`, {
+    method: "POST",
+
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+  },
+  
+  
+  
+  })
+  const result1= await response1.json()
+  const access_token = result1.access_token
+  
+  console.log(access_token)
+  window.localStorage.setItem('user_token',access_token)
+    const response2= await fetch('http://localhost:8080/getUsers',{
+      method:'GET',
+      headers:{
+        'Authorization':`Bearer ${access_token}`
+      }
+})
+    const result2= await response2.json()
+    const {ret,person}=await setuser(result2)
+    console.log(result2)
     if(ret){ 
       window.localStorage.setItem('signedIn',userPresent)
       window.localStorage.setItem('email',email)
@@ -56,10 +75,8 @@ const checkSignIn=async(data,evt)=>{
     }else{
       console.log('No such user')
     }
-  }else{
-    alert('Fieldnames Incomplete')
   }
-}
+
 
   return (
     <div className=''>
@@ -146,5 +163,6 @@ const checkSignIn=async(data,evt)=>{
     </div>
 
   )
-}
+                }
+
 export default Signin;

@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 import Khalti from '../components/Khalti/Khalti';
 import { useForm } from "react-hook-form";
 import Test from './Test';
-import {storage, db } from './../utils/firebaseConfig'
+import { storage, db } from './../utils/firebaseConfig'
 
 const Checkout = ({ location, history }) => {
 
@@ -22,6 +22,8 @@ const Checkout = ({ location, history }) => {
 
     const [image, setImage] = useState(null);
     const [viewFile, setViewFile] = useState(null);
+
+    const access_token = window.localStorage.getItem('user_token')
 
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
 
@@ -65,8 +67,14 @@ const Checkout = ({ location, history }) => {
             if (location.search == "") {
                 history.push("/app/cars")
             }
+            const access_token = window.localStorage.getItem('user_token')
+
+            console.log(access_token)
             const response = await fetch(`http://localhost:8080/getVehicle/${location.search.slice(4)}`, {
-                method: "GET"
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${access_token}`,
+                }
             });
             const vehicleData = await response.json();
             setvehicleData(vehicleData)
@@ -85,6 +93,7 @@ const Checkout = ({ location, history }) => {
     const [zip, setZip] = useState('')
     const [from, setFrom] = useState('')
     const [till, setTill] = useState('')
+    const [destination, setDestination] = useState('')
 
     const handleChange = (evt, placeholder) => {
         switch (placeholder) {
@@ -112,6 +121,10 @@ const Checkout = ({ location, history }) => {
             case 'till':
                 setTill(evt.target.value);
                 break;
+            case 'destination':
+                setDestination(evt.target.value);
+                break;
+           
 
         }
     }
@@ -136,48 +149,54 @@ const Checkout = ({ location, history }) => {
                     .ref("images")
                     .child(image.name)
                     .getDownloadURL()
-                    .then((async(url) => {
+                    .then((async (url) => {
                         const sendData = {
                             vehicle: parseInt(location.search.slice(4)),
                             firstName: firstName,
                             lastName: lastName,
-                            mailAddress: url,
+                            mailAddress: email,
                             phNumber: phone,
                             city: city,
                             zipCode: zip,
                             fromDate: from,
                             toDate: till,
-                            vname: vehicleData.vehicleName,
+                            vName: vehicleData.vehicleName,
                             vprice: parseInt(vehicleData.vehiclePrice) * date_to_day(from, till),
-                            vimage: vehicleData.vehicleImage,
-                            vnumber: vehicleData.vehicleNumber,
+                            vImage: vehicleData.vehicleImage,
+                            vNumber: vehicleData.vehicleNumber,
                             booked: true,
                             bookingDeleted: false,
-                            
+                            destination: destination,
+                            citizenshipAttachment: url,
+
+
                         }
                         console.log(sendData)
-                        
+
                         const userID = window.localStorage.getItem('id')
                         
+                        
 
-                        const response = await fetch(`http://localhost:8080/addBooking?userId=${parseInt(userID)}&vehicleId=${parseInt(location.search.slice(4))}`, { 
+                        const response = await fetch(`http://localhost:8080/addBooking?userId=${userID}&vehicleId=${location.search.slice(4)}`, {
                             method: 'POST',
                             headers: {
-                                'Content-Type': 'application/json'
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${access_token}`,
                             },
                             body: JSON.stringify(sendData)
 
                         })
                         const bookingData = await response.json()
+                        console.log(bookingData)
                         if (bookingData.booked) alert("Booking Successful!! Thank you")
                     }))
             }
 
         );
 
-       
 
-       
+
+
     }
 
 
@@ -201,10 +220,10 @@ const Checkout = ({ location, history }) => {
                                     <input onChange={(evt) => handleChange(evt, 'firstName')}
                                         class="border-none w-full"
                                         type="text"
-                                        placeholder="Jane"/>
-                                       
+                                        placeholder="Jane" />
+
                                 </div>
-                               
+
 
                             </div>
                             <div class="w-full md:w-1/2 px-3">
@@ -217,9 +236,9 @@ const Checkout = ({ location, history }) => {
                                         class="border-none w-full"
                                         type="text"
                                         placeholder="Doe"
-                                        />
+                                    />
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-6">
@@ -233,11 +252,29 @@ const Checkout = ({ location, history }) => {
                                         type="text"
                                         placeholder="mike@email.com"
                                         onChange={(evt) => handleChange(evt, 'email')}
-                                         />
+                                    />
                                 </div>
-                                
+
                             </div>
                         </div>
+
+                        <div class="flex flex-wrap -mx-3 mb-6">
+                            <div class="w-full px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
+                                    Destination
+                                </label>
+                                <div className='border-b border-[#f9a826]'>
+                                    <input
+                                        class="border-none w-full"
+                                        type="text"
+                                        placeholder="Pokhara"
+                                        onChange={(evt) => handleChange(evt, 'destination')}
+                                    />
+                                </div>
+
+                            </div>
+                        </div>
+
                         <div className='flex flex-wrap -mx-3 mb-6'>
 
 
@@ -251,10 +288,10 @@ const Checkout = ({ location, history }) => {
                                         country='np'
                                         value={phone}
                                         onChange={setPhone}
-                                       
+
                                     />
                                 </div>
-                               
+
                             </div>
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-6">
@@ -268,9 +305,9 @@ const Checkout = ({ location, history }) => {
                                         class="border-none w-full"
                                         type="text"
                                         placeholder="Albekerque"
- />
+                                    />
                                 </div>
-                                
+
                             </div>
 
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -282,9 +319,9 @@ const Checkout = ({ location, history }) => {
                                         class="border-none w-full "
                                         type="text"
                                         placeholder="90210"
-                                        />
+                                    />
                                 </div>
-                                
+
 
                             </div>
 
@@ -321,8 +358,8 @@ const Checkout = ({ location, history }) => {
                             <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'> Attach Citizenship </label>
                             <div className='flex flex-row justify-between'>
                                 <div>
-                                <input type="file" onChange={handleImageChange}></input>
-                                {viewFile&&<img src={viewFile}/>}
+                                    <input type="file" onChange={handleImageChange}></input>
+                                    {viewFile && <img src={viewFile} />}
                                 </div>
 
                             </div>

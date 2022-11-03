@@ -22,6 +22,8 @@ const Navbar = () => {
     const handleLogOut=()=>{
         window.localStorage.removeItem('signedIn')
         window.localStorage.removeItem('email')
+        window.localStorage.removeItem('id')
+        window.localStorage.removeItem('user_token')
         setUser(false)
     }
 
