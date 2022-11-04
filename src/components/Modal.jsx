@@ -22,6 +22,7 @@ export const Modal = ({ onClose }) => {
     const [speed, setSpeed] = useState('')
     const [acceleration, setAcceleration] = useState('')
     const [seats, setSeats] = useState('')
+    const [vehicleData, setvehicleData] = useState('')
 
 
     // const select = useRef(null)
@@ -114,7 +115,7 @@ export const Modal = ({ onClose }) => {
                             vehicleName: vehicleName,
                             vehicleType: vehicleType,
                             vehicleRating: 0,
-                            vehicleReview: "",
+                            vehicleReview: 0,
                             vehiclePrice: vehiclePrice,
                             vehicleNumber:vehicleNumber,
                             autoManual:transmissionType,
@@ -125,15 +126,22 @@ export const Modal = ({ onClose }) => {
 
                         }
                         console.log(sendData)
+                        const access_token = window.localStorage.getItem('user_token')
+                        
                         const response = await fetch(`http://localhost:8080/addWheel`,
                         {
                            method: "POST", 
-                           headers: {'Content-Type':'application/json'},
+                           headers: {'Content-Type':'application/json',
+                           'Authorization': `Bearer ${access_token}`,
+                        },
                            body:JSON.stringify(sendData)
-                        }
-                        )
+                        })
+                        const addVehicle = await response.json();
+
+                        console.log(addVehicle)
+
                         onClose()
-                        window.location.reload()
+                       // window.location.reload()
                         return null
                     }))
             }
@@ -146,7 +154,7 @@ export const Modal = ({ onClose }) => {
             <div className="">
                
                 <div className="w-[100%]">
-                <form onSubmit={handleUpload} class="bg-white shadow-md rounded px-10 py-10 w-[600px] mt-20" id="addVehicle" >
+                <form onSubmit={handleUpload} class="bg-white shadow-md rounded px-10 py-10 w-[600px] mt-[200px]" id="addVehicle" >
                     <div className="-mt-4 mb-6 flex justify-end">
                 <p onClick={onClose}>X</p>
                 </div>

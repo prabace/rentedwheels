@@ -5,17 +5,55 @@ import Chart from '../components/Chart'
 
 function Dashboard() {
     const [bookings,setBookings]=useState('')
+    const [userCount, setuserCount]=useState(0)
+    const [vehicleCount, setvehicleCount]=useState(0)
+
     useEffect(() => {
-        async function getBookings() {
+
+        const access_token = window.localStorage.getItem('user_token')
+
+        async function getBookings(access_token) {
+
+           
+
           const response = await fetch(`http://localhost:8080/getBookings`, {
-            method: "GET"
+            method: "GET",
+            headers:{
+                "Authorization": `Bearer ${access_token}`
+            }
           });
           const data = await response.json();
     
           setBookings(data)
     
         }
-        getBookings()
+        async function getallUsers(access_token){
+    
+            
+    const response2= await fetch('http://localhost:8080/getUsers',{
+      method:'GET',
+      headers:{
+        'Authorization':`Bearer ${access_token}`
+      }
+})
+    const result2= await response2.json()
+    setuserCount(result2.length)
+        }
+        async function getallVehicles(access_token){
+    
+            
+            const response = await fetch(`http://localhost:8080/getVehicles`, {
+                method: "GET",
+                headers:{
+                  'Authorization':`Bearer ${access_token}`
+                }
+              });
+              const data = await response.json();
+    setvehicleCount(data.length)
+        }
+        getBookings(access_token)
+        getallUsers(access_token)
+        getallVehicles(access_token)
       }, [])
       console.log(bookings)
     
@@ -28,7 +66,7 @@ function Dashboard() {
                             <h2>{bookings[keys].vprice}</h2>
                         </div>
                         <div>
-                            <h2>Card</h2>
+                            <h2>{bookings[keys].paymentMethod}</h2>
                         </div>
                         <div>
                             <h2>{bookings[keys].vname}</h2>
@@ -55,7 +93,7 @@ function Dashboard() {
                                 <h2 className='text-2xl'>  Products </h2>
                             </div>
                             <div>
-                                <h2 className='text-lg'>+10</h2>
+                                <h2 className='text-lg'>+{vehicleCount}</h2>
                             </div>
                         </div>
 
@@ -68,10 +106,10 @@ function Dashboard() {
 
                         <div className='flex flex-col'>
                             <div className=' '>
-                                <h2 className='text-2xl'>New Users</h2>
+                                <h2 className='text-2xl'>Users</h2>
                             </div>
                             <div>
-                                <h2 className='text-lg'>+10</h2>
+                                <h2 className='text-lg'>+{userCount}</h2>
                             </div>
                         </div>
 
@@ -84,10 +122,10 @@ function Dashboard() {
 
                         <div className='flex flex-col'>
                             <div className=' '>
-                                <h2 className='text-2xl'>New Orders</h2>
+                                <h2 className='text-2xl'>Orders</h2>
                             </div>
                             <div>
-                                <h2 className='text-lg'>+10</h2>
+                                <h2 className='text-lg'>+{bookings.length}</h2>
                             </div>
                         </div>
 

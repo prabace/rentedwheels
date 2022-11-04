@@ -94,6 +94,7 @@ const Checkout = ({ location, history }) => {
     const [from, setFrom] = useState('')
     const [till, setTill] = useState('')
     const [destination, setDestination] = useState('')
+    const [payment, setPayment] = useState('')
 
     const handleChange = (evt, placeholder) => {
         switch (placeholder) {
@@ -124,6 +125,9 @@ const Checkout = ({ location, history }) => {
             case 'destination':
                 setDestination(evt.target.value);
                 break;
+            case 'payment':
+                    setPayment(evt.target.value);
+                    break;
            
 
         }
@@ -151,7 +155,7 @@ const Checkout = ({ location, history }) => {
                     .getDownloadURL()
                     .then((async (url) => {
                         const sendData = {
-                            vehicle: parseInt(location.search.slice(4)),
+                           
                             firstName: firstName,
                             lastName: lastName,
                             mailAddress: email,
@@ -160,14 +164,15 @@ const Checkout = ({ location, history }) => {
                             zipCode: zip,
                             fromDate: from,
                             toDate: till,
-                            vName: vehicleData.vehicleName,
+                            vname: vehicleData.vehicleName,
                             vprice: parseInt(vehicleData.vehiclePrice) * date_to_day(from, till),
-                            vImage: vehicleData.vehicleImage,
-                            vNumber: vehicleData.vehicleNumber,
+                            vimage: vehicleData.vehicleImage,
+                            vnumber: vehicleData.vehicleNumber,
                             booked: true,
                             bookingDeleted: false,
                             destination: destination,
                             citizenshipAttachment: url,
+                            paymentMethod: payment == ''? 'Khalti':payment,
 
 
                         }
@@ -372,8 +377,8 @@ const Checkout = ({ location, history }) => {
                                     <Khalti price={vehicleData.vehiclePrice} />
                                 </div>
                                 <div>
-                                    <input type='radio' value="Via Cash" />
-                                    <label className='ml-2'>Via Cash</label>
+                                <input onChange={(evt) => handleChange(evt, 'payment')} type="radio" name="cash" value="Cash" />
+                                <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cash</label>
 
                                 </div>
                             </div>

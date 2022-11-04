@@ -10,7 +10,10 @@ import Rating from '@mui/material/Rating';
 import { useState } from 'react';
 
 
+
 const Order = (props) => {
+
+    const [submitted, setSubmitted] = useState(false)
     const [rating,setRating]= useState(0)
     const [comment,setComment]= useState('')
     const handleSubmit=async (evt)=>{
@@ -21,16 +24,24 @@ const Order = (props) => {
             rating:rating,
             comment:comment
         }
+
+        const access_token = window.localStorage.getItem('user_token')
+
         const response = await fetch (`http://localhost:8080/rate/${userID}/${vehicleID}?comment=${comment}&rating=${rating}`, {
             method: 'POST',
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${access_token}`
             },
         })
         const data= await response.json()
         console.log(data)
 
+        setSubmitted(true)
+
     }
+
+
     return (
         <div className=''>
             <div className='border-2 mx-4'>
@@ -149,7 +160,7 @@ const Order = (props) => {
                 </div>
                 </form>
                 <div>
-                    <Review />
+                    <Review vehicleId = {props.id} submit={submitted} />
                 </div>
 
 

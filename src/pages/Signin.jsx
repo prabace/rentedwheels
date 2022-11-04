@@ -22,7 +22,7 @@ const Signin = (args) => {
         default: break;
         }
 }
-async function setuser(usersData){
+async function setuser(usersData, email){
   var ret=false
   var person={}
   usersData.forEach(element => {
@@ -63,7 +63,7 @@ const checkSignIn=async(data,evt)=>{
       }
 })
     const result2= await response2.json()
-    const {ret,person}=await setuser(result2)
+    const {ret,person}=await setuser(result2,data.email)
     console.log(result2)
     if(ret){ 
       window.localStorage.setItem('signedIn',userPresent)
