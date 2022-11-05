@@ -99,10 +99,42 @@ const Bookings = () => {
             <div className=' border-2  '>
                 <div className='mx-6 my-8 '>
 
+
                     <h1 className='font-semi-bold text-4xl'>Your Orders</h1>
                     <div className='text-lg mt-3'>
                         <h5>Check the status of your bookings and manage orders.</h5>
                     </div>
+                
+                    <div>
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+                                    From:
+                                </label>
+                                <div className='border-b border-[#f9a826]'>
+                                    <input
+                                        class="border-none w-full"
+                                        type="date"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
+                                    TO:
+                                </label>
+                                <div className='border-b border-[#f9a826]'>
+                                    <input
+                                        class="border-none w-full "
+                                        type="date" />
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
                 </div>
                 {displayBooking}
 
