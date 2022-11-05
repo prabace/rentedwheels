@@ -53,6 +53,7 @@ function Cars() {
     id={vehicleData[keys].id}
     img={vehicleData[keys].vehicleImage}
     vehicleRating={vehicleData[keys].vehicleRating}
+    booked= {vehicleData[keys].booked}
   /> </Link>)
 
 
@@ -79,6 +80,7 @@ function Cars() {
       img={vehicleData[keys].vehicleImage}
       id={vehicleData[keys].id}
       vehicleRating={vehicleData[keys].vehicleRating}
+      booked= {vehicleData[keys].booked}
     />
 
   )

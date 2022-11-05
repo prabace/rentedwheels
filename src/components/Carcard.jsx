@@ -118,10 +118,14 @@ const Carcard = (props) => {
                 : <Link to={`/app/checkout?id=${props.id}`}>
                   {/**passing vehicle id to used in checkout page */}
                   <div className='grid grid-cols-2 gap-x-2'>
+                    
                     <div>
-                      <button className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Book Now</button>
-                    </div>
-
+                      {!props.booked?
+                      <button  className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Book Now</button>:
+                      <button disabled  className='px-10 py-2 rounded-full w-full   hover:text-[#f9a826] '>Book Now</button>
+                      }
+                      </div>
+                    
                   </div>
                 </Link>
             }
