@@ -194,7 +194,7 @@ const Checkout = ({ location, history }) => {
                         const bookingData = await response.json()
                         console.log(bookingData)
                         if (bookingData.booked){
-                            const response = await fetch(`http://localhost:8080/updateVehicle}`, {
+                            const response = await fetch(`http://localhost:8080/updateVehicle/`, {
                                 method: 'PUT',
                                 headers: {
                                     'Content-Type': 'application/json',
