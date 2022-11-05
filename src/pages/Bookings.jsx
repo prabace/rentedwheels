@@ -8,18 +8,18 @@ import raptor from '../assets/ford-raptor.jpg'
 const Bookings = () => {
     const [bookingData, setbookingData]= useState([])
     
+    async function getbookingData() {    
+        const id = window.localStorage.getItem('id')
+        const access_token = window.localStorage.getItem('user_token')
+        const response=  await fetch(`http://localhost:8080/getBookingByUserId/${id}`, {
+            method: "GET",
+            headers: {
+              'Authorization': `Bearer ${access_token}`,
+        },})
+        const data = await response.json()
+        setbookingData(data)
+    }
     useEffect(() => {
-        async function getbookingData() {    
-            const id = window.localStorage.getItem('id')
-            const access_token = window.localStorage.getItem('user_token')
-            const response=  await fetch(`http://localhost:8080/getBookingByUserId/${id}`, {
-                method: "GET",
-                headers: {
-                  'Authorization': `Bearer ${access_token}`,
-            },})
-            const data = await response.json()
-            setbookingData(data)
-        }
         getbookingData()
     },[])
     function date_to_day(begin, end) {
@@ -32,6 +32,19 @@ const Bookings = () => {
         // To calculate the no. of days between two dates
         var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
         return Difference_In_Days
+    }
+    
+    const handleCancleBooking = async (evt,id) => {
+        const access_token = window.localStorage.getItem('user_token')
+        const response = await fetch(`http://localhost:8080/deleteBooking/${id}`, {
+            method: "DELETE",
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+            },
+        })
+        const data = await response.json()
+        console.log(data)
+        getbookingData()
     }
     
     const displayBooking = Object.keys(bookingData).map((key) =>{
@@ -57,7 +70,7 @@ const Bookings = () => {
                                     </div>
                                     <div className='flex flex-row gap-x-10'>
                                     <div className=''>
-                                        <button className='px-10 py-2 rounded-full'>Cancel Booking</button>
+                                        <button onClick={(evt)=>handleCancleBooking(evt, bookingData[key].id)} className='px-10 py-2 rounded-full'>Cancel Booking</button>
                                     </div>
                                     <div className=''>
                                     <button className='px-10 py-2 rounded-full'>Change Booking</button>
