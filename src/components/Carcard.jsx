@@ -52,7 +52,7 @@ const Carcard = (props) => {
             <h2 className='text-lg font-medium'>Rs.{props.price}/Day</h2>
           </div>
           <div className='-mt-5 flex flex-row justify-between'>
-            <Rating name="read-only" precision={0.5} value={props.value} readOnly />
+            <Rating name="read-only" precision={0.1} value={parseFloat(props.vehicleRating)} readOnly />
 
             <h6 className='ml-4 text-gray-500'>{props.reviews} reviews</h6>
             {props.booked && <h6 className=' px-2 bg-red-500 rounded-full text-white'>Booked</h6>}

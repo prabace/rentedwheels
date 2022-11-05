@@ -43,7 +43,6 @@ const Order = (props) => {
         setVehicle(data)
         return
       }
-
     useEffect(() => {
         getReviews()
         getVehicle()
@@ -112,7 +111,7 @@ const Order = (props) => {
                     </div>
                 </div>
                 <div className='mx-4'>
-                <Rating name="half-rating" precision={0.5} defaultValue={parseInt(props.vehicleRating)} readOnly />
+                <Rating name="half-rating" precision={0.5} defaultValue={parseFloat(props.vehicleRating)} readOnly />
                 </div>
                 <div className='flex justify justify-center'>
 
