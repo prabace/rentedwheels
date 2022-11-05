@@ -62,6 +62,8 @@ function Addcars({history}) {
     value={vehicleData[keys].vehicleRating}
     id={vehicleData[keys].id}
     img={vehicleData[keys].vehicleImage}
+    vehicleRating={vehicleData[keys].vehicleRating}
+    vehicleReview={vehicleData[keys].vehicleReview}
     user='admin'
     history
   /> )
@@ -89,6 +91,8 @@ function Addcars({history}) {
       title={vehicleData[keys].vehicleName}
       img={vehicleData[keys].vehicleImage}
       id={vehicleData[keys].id}
+      vehicleRating={vehicleData[keys].vehicleRating}
+      vehicleReview={vehicleData[keys].vehicleReview}
       user='admin'
       history
     />
