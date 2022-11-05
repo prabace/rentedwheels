@@ -7,7 +7,7 @@ import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import Review from './Review';
 import profile from '../assets/profile.svg'
 import Rating from '@mui/material/Rating';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 
@@ -16,6 +16,25 @@ const Order = (props) => {
     const [submitted, setSubmitted] = useState(false)
     const [rating,setRating]= useState(0)
     const [comment,setComment]= useState('')
+    const [reviews, setReviews] = useState([])
+
+    async function getReviews() {
+        const access_token = window.localStorage.getItem('user_token')
+        const response = await fetch(`http://localhost:8080/ratings/${props.id}`, {
+          method: "GET",
+          headers:{
+            'Authorization':`Bearer ${access_token}`
+          }
+        });
+        const data = await response.json();
+        setReviews(data)
+        return
+      }
+
+    useEffect(() => {
+        getReviews()
+      }, [props.id])
+
     const handleSubmit=async (evt)=>{
         const userID=parseInt(window.localStorage.getItem('id'))
         const vehicleID=parseInt(props.id)
@@ -34,11 +53,12 @@ const Order = (props) => {
                 'Authorization': `Bearer ${access_token}`
             },
         })
-        const data= await response.json()
+        const data= await response.text()
         console.log(data)
-
-        setSubmitted(true)
-
+        setRating(0)
+        setComment('')
+        await getReviews()
+        return
     }
 
 
@@ -160,9 +180,15 @@ const Order = (props) => {
                 </div>
                 </form>
                 <div>
-                    <Review vehicleId = {props.id} submit={submitted} />
-                </div>
+                <div className=' mx-2 my-5'>
+                     <h1 className='text-3xl font-medium px-4 my-8'>Reviews</h1>
+                    {
+                        Object.keys(reviews).map((key) => 
+                        <Review ratings={reviews[key].ratings} comment={reviews[key].comment} />)
 
+                    }
+                </div>
+                </div>
 
 
 
