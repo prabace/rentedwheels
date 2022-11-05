@@ -193,7 +193,7 @@ export const Modal = ({ onClose }) => {
                                 <option value="Luxury">Luxury</option>
                                 <option value="Two-Wheelers">Two-Wheelers</option>
                                 <option value="Sports">Sports</option>
-                                <option value="Off-Road">Off-Road</option>
+                                <option value="Off-road">Off-road</option>
                                 <option value="Electric">Electric</option>
                             </select>
                         </div>
@@ -268,7 +268,7 @@ export const Modal = ({ onClose }) => {
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="acceleration">
                                 Acceleration Time
                             </label>
-                            <input onChange={(evt) => handleChange(evt, 'acceleraion')} class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Acc.Time" />
+                            <input onChange={(evt) => handleChange(evt, 'acceleration')} class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Acc.Time" />
                         </div>
                         <div class="mb-6">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="seats">

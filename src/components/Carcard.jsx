@@ -40,8 +40,13 @@ const Carcard = (props) => {
   </svg>
 
   const handleDelete = () => {
+    const access_token = window.localStorage.getItem('user_token')
+    
     fetch(`http://localhost:8080/deleteVehicle/${props.id}`, {
-      method: "DELETE"
+      method: "DELETE",
+      headers:{
+        'Authorization':`Bearer ${access_token}`
+      }
     }).then(data => {
       window.location.reload()
       return

@@ -96,7 +96,7 @@ function Cars() {
         <div className='flex flex-row mx-4 gap-x-2'>
           <div className='border-2 px-2 py-2 flex flex-col justify justify-center'>
             <div>
-              <ElectricCarIcon sx={{ fontSize: 40 }} onClick={() => setSelect((prev) => { return prev == 'Electric' ? 'default' : 'Electric' })} />
+              <ElectricCarIcon sx={{ fontSize: 40 }} onClick={() => setSelect((prev) => { return prev === 'Electric' ? 'default' : 'Electric' })} />
             </div>
             <div>
               <h3> Electric</h3>
@@ -105,7 +105,7 @@ function Cars() {
 
           <div className='border-2 px-2 py-2 flex flex-col justify justify-center'>
           <div>
-            <AirportShuttleIcon sx={{ fontSize: 40 }} onClick={() => setSelect((prev) => { return prev == 'Sports' ? 'default' : 'Sports' })} />
+            <AirportShuttleIcon sx={{ fontSize: 40 }} onClick={() => setSelect((prev) => { return prev === 'Sports' ? 'default' : 'Sports' })} />
           </div>
           <div>
               <h3> Sports </h3>
@@ -113,7 +113,7 @@ function Cars() {
           </div>
           <div className='border-2 px-2 py-2 flex flex-col justify justify-center'>
           <div>
-            <TwoWheelerIcon sx={{ fontSize: 40 }} onClick={() => setSelect((prev) => { return prev == 'Two-wheelers' ? 'default' : 'Two-wheelers' })} />
+            <TwoWheelerIcon sx={{ fontSize: 40 }} onClick={() => setSelect((prev) => { return prev === 'Two-Wheelers' ? 'default' : 'Two-Wheelers' })} />
           </div>
           <div>
               <h3> Bikes </h3>
@@ -122,7 +122,7 @@ function Cars() {
 
           <div className='border-2 px-2 py-2 flex flex-col justify justify-center'>
           <div>
-            <AirlineSeatReclineExtraIcon sx={{ fontSize: 40 }} onClick={() => setSelect((prev) => { return prev == 'Luxury' ? 'default' : 'Luxury' })}/>
+            <AirlineSeatReclineExtraIcon sx={{ fontSize: 40 }} onClick={() => setSelect((prev) => { return prev === 'Luxury' ? 'default' : 'Luxury' })}/>
           </div>
           <div>
               <h3> Luxury </h3>
@@ -131,7 +131,7 @@ function Cars() {
 
           <div className='border-2 px-2 py-2 flex flex-col justify justify-center'>
           <div>
-            <RemoveRoadIcon sx={{ fontSize: 40 }} onClick={() => setSelect((prev) => { return prev == 'Off-road' ? 'default' : 'Off-road' })} />
+            <RemoveRoadIcon sx={{ fontSize: 40 }} onClick={() => setSelect((prev) => { return prev === 'Off-road' ? 'default' : 'Off-road' })} />
           </div>
           <div>
               <h3>Off-road</h3>
