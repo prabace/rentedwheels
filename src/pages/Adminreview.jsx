@@ -1,19 +1,5 @@
 import React from 'react'
-
-import Carcard from '../components/Carcard';
-
-
-import { useFormControlUnstyledContext } from '@mui/base';
-import { keys } from '@mui/system';
-import { Link } from 'react-router-dom';
-import HomeIcon from '@mui/icons-material/Home';
-import ElectricCarIcon from '@mui/icons-material/ElectricCar';
-import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
-import TwoWheelerIcon from '@mui/icons-material/TwoWheeler';
-import AirlineSeatReclineExtraIcon from '@mui/icons-material/AirlineSeatReclineExtra';
-import RemoveRoadIcon from '@mui/icons-material/RemoveRoad';
 import Review from '../components/Review';
-import profile from '../assets/profile.svg'
 import Rating from '@mui/material/Rating';
 import { useState, useEffect } from 'react';
 
@@ -66,6 +52,31 @@ const Adminreview = ({location,history}) => {
             },
         })
         const data = await response.text()
+        if(data=="Deleted"){
+            const response1=await fetch(`http://localhost:8080/rating/${vehicleData.id}`, {
+                method: 'GET',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${access_token}`
+                },
+            })
+            const rating= await response1.text()
+            const reviewCount= parseInt(vehicleData.vehicleReview)-1
+            const response = await fetch (`http://localhost:8080/updateVehicle`, {
+                method: 'PUT',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${access_token}`
+                },
+                body: JSON.stringify({
+                    ...vehicleData,
+                    rating:rating,
+                    vehicleReview:reviewCount
+                })
+            })
+            const data2= await response.json()
+        }
+
         console.log(data)
         await getReviews()
         return
