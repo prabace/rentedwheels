@@ -24,6 +24,7 @@ import { Route } from 'react-router-dom'
 import Features from './components/Features';
 import { useEffect } from 'react';
 import { Footer } from './components/Footer';
+import Adminreview from './pages/Adminreview';
 
 function App() {
   
@@ -98,6 +99,9 @@ function App() {
           </Route>
           <Route exact path="/admin/dashboard">
           <Dashboard />
+        </Route>
+        <Route exact path="/admin/adminreview">
+          <Adminreview />
         </Route>
         </Route>
 

@@ -22,7 +22,7 @@ const Carcard = (props) => {
         method: "GET"
       });
       const data = await response.json();
-      
+
       console.log(data)
       setBookingData(data)
 
@@ -39,19 +39,20 @@ const Carcard = (props) => {
     <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
   </svg>
 
-  const handleDelete = () =>{
-     fetch(`http://localhost:8080/deleteVehicle/${props.id}`, {
+  const handleDelete = () => {
+    fetch(`http://localhost:8080/deleteVehicle/${props.id}`, {
       method: "DELETE"
-    }).then(data=>{window.location.reload()
-    return 
+    }).then(data => {
+      window.location.reload()
+      return
     }
-    
-)
-    
-    
+
+    )
+
+
   }
 
- 
+
 
 
   return (
@@ -69,12 +70,12 @@ const Carcard = (props) => {
           </div>
           <div className='-mt-5 flex flex-row justify-between'>
             <Rating name="read-only" value={props.value} readOnly />
-            
+
             <h6 className='ml-4 text-gray-500'>{props.reviews} reviews</h6>
-               {props.booked&&<h6 className=' px-2 bg-red-500 rounded-full text-white'>Booked</h6>}
-            
+            {props.booked && <h6 className=' px-2 bg-red-500 rounded-full text-white'>Booked</h6>}
+
           </div>
-          
+
           <div className='flex flex-row gap-x-2 mt-2'>
             <div className='flex flex-col '>
               <svg xmlns="http://www.w3.org/2000/svg" class="h-12 border rounded-2xl bg-gray-100 text-blue-500 mr-3 px-3 py-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -113,27 +114,35 @@ const Carcard = (props) => {
           </div>
           <div className='my-4'>
             {
-              props.user == 'admin' ? 
-              <div className="grid grid-cols-2 gap-x-2">
+              props.user == 'admin' ?
                 <div>
-              <button onClick={()=>setOpenForm(true)} className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Update</button>
+                  <div className="grid grid-cols-2 gap-x-2">
+                    <div>
+                      <button onClick={() => setOpenForm(true)} className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Update</button>
+                    </div>
+                    <div>
+                      <button onClick={handleDelete} className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Delete</button>
+                    </div>
+                    </div>
+                    <div className="mt-4">
+                      <button className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Check reviews</button>
+                    </div>
+
+                 
                 </div>
-                <div>
-              <button onClick={handleDelete} className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Delete</button>
-                </div>
-              </div>
-              
-               : <Link to={`/app/checkout?id=${props.id}`}>
-                {/**passing vehicle id to used in checkout page */}
-                <div className='grid grid-cols-2 gap-x-2'>
-                  <div>
-                <button className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Book Now</button>
-                </div>
-                
-                </div>
-              </Link>
+
+
+                : <Link to={`/app/checkout?id=${props.id}`}>
+                  {/**passing vehicle id to used in checkout page */}
+                  <div className='grid grid-cols-2 gap-x-2'>
+                    <div>
+                      <button className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Book Now</button>
+                    </div>
+
+                  </div>
+                </Link>
             }
-            {openForm&&<Updatecars id={props.id} onClose={() => setOpenForm(false)}/>}
+            {openForm && <Updatecars id={props.id} onClose={() => setOpenForm(false)} />}
 
           </div>
         </div>

@@ -154,7 +154,7 @@ export const Modal = ({ onClose }) => {
             <div className="">
                
                 <div className="w-[100%]">
-                <form onSubmit={handleUpload} class="bg-white shadow-md rounded px-10 py-10 w-[600px] mt-[200px]" id="addVehicle" >
+                <form onSubmit={handleUpload} class="bg-white shadow-md rounded px-10 py-10 w-[600px] mt-[400px]" id="addVehicle" >
                     <div className="-mt-4 mb-6 flex justify-end">
                 <p onClick={onClose}>X</p>
                 </div>

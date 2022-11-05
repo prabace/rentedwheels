@@ -1,9 +1,41 @@
-import React from 'react'
+import {React, useEffect, useState} from 'react'
 
 import raptor from '../assets/ford-raptor.jpg'
 
 
+
+
 const Bookings = () => {
+
+
+    const [bookingData, setbookingData]= useState()
+    
+    useEffect(() => {
+        async function getbookingData() {
+            
+            const id = window.localStorage.getItem('id')
+            const access_token = window.localStorage.getItem('user_token')
+        const response=  await fetch(`http://localhost:8080/getBookings`, {
+            method: "GET",
+            headers: {
+              'Authorization': `Bearer ${access_token}`,
+          },
+          
+          
+          
+          })
+          
+          const data = await response.json()
+          const bookingData = []
+          data.forEach(element => {
+            if (element.bookedBy.id == id){
+                bookingData.append(element)
+            }
+          });
+        }
+    },[])
+    
+
     return (
         <div className='h-screen mx-80 my-10'>
             <div className=' border-2  '>
