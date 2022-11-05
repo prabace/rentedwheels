@@ -14,7 +14,7 @@ export const Modal = ({ onClose }) => {
     const [vehicleName, setVehicleName] = useState('')
     const [vehicleNumber, setVehicleNumber] = useState('')
     const [vehiclePrice, setVehiclePrice] = useState('')
-    const [vehicleType, setVehicleType] = useState('')
+    const [vehicleType, setVehicleType] = useState('Luxury')
     const [ac, setAc] = useState('')
     const [transmissionType, settransmissionType] = useState('')
     const [source, setSource] = useState('')
@@ -141,7 +141,7 @@ export const Modal = ({ onClose }) => {
                         console.log(addVehicle)
 
                         onClose()
-                       // window.location.reload()
+                       window.location.reload()
                         return null
                     }))
             }
@@ -189,7 +189,7 @@ export const Modal = ({ onClose }) => {
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
                                 Vehicle Type
                             </label>
-                            <select id="sel" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                            <select onChange={(evt) => handleChange(evt, 'vehicleType')} defaultValue="Luxury" id="sel" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                                 <option value="Luxury">Luxury</option>
                                 <option value="Two-Wheelers">Two-Wheelers</option>
                                 <option value="Sports">Sports</option>
