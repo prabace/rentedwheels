@@ -5,14 +5,16 @@ import Categories from './Categories';
 import { Link } from 'react-router-dom';
 
 
-import raptor from '../assets/ford-raptor.jpg'
+
+import { Updatecars } from './Updatecars';
+
 
 
 const Carcard = (props) => {
 
 
   const [bookingData, setBookingData] = useState('')
-
+  const [openForm, setOpenForm] = useState(false)
 
   useEffect(() => {
     async function getVehicleBooking() {
@@ -48,6 +50,8 @@ const Carcard = (props) => {
     
     
   }
+
+ 
 
 
   return (
@@ -109,11 +113,27 @@ const Carcard = (props) => {
           </div>
           <div className='my-4'>
             {
-              props.user == 'admin' ? <button onClick={handleDelete} className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Delete</button> : <Link to={`/app/checkout?id=${props.id}`}>
+              props.user == 'admin' ? 
+              <div className="grid grid-cols-2 gap-x-2">
+                <div>
+              <button onClick={()=>setOpenForm(true)} className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Update</button>
+                </div>
+                <div>
+              <button onClick={handleDelete} className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Delete</button>
+                </div>
+              </div>
+              
+               : <Link to={`/app/checkout?id=${props.id}`}>
                 {/**passing vehicle id to used in checkout page */}
+                <div className='grid grid-cols-2 gap-x-2'>
+                  <div>
                 <button className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Book Now</button>
+                </div>
+                
+                </div>
               </Link>
             }
+            {openForm&&<Updatecars id={props.id} onClose={() => setOpenForm(false)}/>}
 
           </div>
         </div>

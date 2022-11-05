@@ -8,7 +8,7 @@ function Khalti(props) {
 
   return (
     <div>
-        <button className='px-2 py-2' onClick={() => checkout.show({amount: props.price * 100})}>Via Khalti</button>
+        <button type="button" className='px-2 py-2' onClick={() => checkout.show({amount: props.price * 100})}>Via Khalti</button>
     </div>
   )
 }
