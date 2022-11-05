@@ -65,12 +65,18 @@ const checkSignIn=async(data,evt)=>{
     const result2= await response2.json()
     const {ret,person}=await setuser(result2,data.email)
     console.log(result2)
+    const admins=['prabeshdace','binamraacharya','sunandhanghimire']
     if(ret){ 
       window.localStorage.setItem('signedIn',userPresent)
       window.localStorage.setItem('email',email)
       window.localStorage.setItem('id',person.id)
       window.dispatchEvent(new Event('storage'))
-      args.history.push('/app/home')   
+      if (admins.includes(person.username)){
+        window.localStorage.setItem('admin',true)
+        args.history.push('/admin/dashboard')
+      }else{
+        args.history.push('/app/home')   
+      }
       console.log('user found')   
     }else{
       console.log('No such user')

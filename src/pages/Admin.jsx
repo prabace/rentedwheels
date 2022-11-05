@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom'
 import profile from '../assets/profile.svg'
 import { useState } from 'react'
 
-const Admin = () => {
+const Admin = ({history}) => {
+   const admin = JSON.parse(window.localStorage.getItem('admin'))
+   !admin && history.push('/app/signin') 
 
   const [user, setUser] = useState(window.localStorage.getItem('signedIn') || false)
   const [userEmail, setUserEmail] = useState(window.localStorage.getItem('email') || '')

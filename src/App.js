@@ -10,7 +10,6 @@ import Garage from './pages/Garage';
 import Checkout from './pages/Checkout';
 import Bookings from './pages/Bookings';
 import Order from './components/Order';
-import Datepicker from './components/Datepicker';
 import Test from './pages/Test';
 import Review from './components/Review';
 import Dashboard from './pages/Dashboard';
@@ -20,7 +19,7 @@ import Khalti from './components/Khalti/Khalti';
 import Addcars from './pages/Addcars';
 import { Modal } from './components/Modal';
 
-import { Route } from 'react-router-dom'
+import { Route,Navigate } from 'react-router-dom'
 import Features from './components/Features';
 import { useEffect } from 'react';
 import { Footer } from './components/Footer';
@@ -86,21 +85,18 @@ function App() {
         <Route exact path="/app/khalti">
           <Khalti />
         </Route>
-
-        <Route exact path="/app/addCars" render={(routeProps) => <Addcars {...routeProps} />}/>
       
         <Route exact path="/app/modal">
           <Modal />
         </Route>
 
         <Route>
-          <Route path="/admin">
-            <Admin />
-          </Route>
+          <Route path="/admin" render={(routeProps)=> <Admin {...routeProps} />} />
           <Route exact path="/admin/dashboard">
           <Dashboard />
         </Route>
         <Route exact path="/admin/adminreview" render={(routeProps) => <Adminreview {...routeProps} />}/>
+        <Route exact path="/admin/addCars" render={(routeProps) => <Addcars {...routeProps} />}/>
         </Route>
 
       </main>
