@@ -23,7 +23,7 @@ export const Updatecars = ({ onClose, id }) => {
     const [acceleration, setAcceleration] = useState('')
     const [seats, setSeats] = useState('')
     
-
+    const [imageChanged,setImageChanged]= useState(false)
     const [vehicleInfo, setvehicleInfo] = useState('')
 
 
@@ -110,6 +110,7 @@ export const Updatecars = ({ onClose, id }) => {
     const handleImageChange = (e) => {
         e.preventDefault();
         if (e.target.files[0]) {
+            setImageChanged(true)
             setImage(e.target.files[0]);
             setViewFile(URL.createObjectURL(e.target.files[0]))
             console.log(image)
@@ -117,68 +118,110 @@ export const Updatecars = ({ onClose, id }) => {
 
     }
 
-    const handleUpload = (evt) => {
+    const handleUpload = async (evt) => {
         evt.preventDefault();
-        const uploadTask = storage.ref(`images/${image.name}`).put(image);
-        uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-                const progress = Math.round(
-                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                );
-            },
-            (error) => {
-                console.log(error);
-                alert(error.message);
-            },
-            () => {
-                storage
-                    .ref("images")
-                    .child(image.name)
-                    .getDownloadURL()
-                    .then((async(url) => {
-                        const sendData =
-                        {
-                            id: id,
-                            booked: false,
-                            fuelElectric: source,
-                            ac: ac,
-                            type: "",
-                            seats: seats,
-                            vehicleName: vehicleName,
-                            vehicleType: vehicleType,
-                            vehicleRating: 0,
-                            vehicleReview: 0,
-                            vehiclePrice: vehiclePrice,
-                            vehicleNumber:vehicleNumber,
-                            autoManual:transmissionType,
-                            maxPower:power,
-                            topSpeed:speed,
-                            vehicleImage:url,
-                            accelerationTime:acceleration,
+        if(imageChanged){
+            const uploadTask = storage.ref(`images/${image.name}`).put(image);
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    const progress = Math.round(
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                    );
+                },
+                (error) => {
+                    console.log(error);
+                    alert(error.message);
+                },
+                () => {
+                    storage
+                        .ref("images")
+                        .child(image.name)
+                        .getDownloadURL()
+                        .then((async(url) => {
+                            const sendData =
+                            {
+                                id: id,
+                                booked: false,
+                                fuelElectric: source,
+                                ac: ac,
+                                type: "",
+                                seats: seats,
+                                vehicleName: vehicleName,
+                                vehicleType: vehicleType,
+                                vehicleRating: 0,
+                                vehicleReview: 0,
+                                vehiclePrice: vehiclePrice,
+                                vehicleNumber:vehicleNumber,
+                                autoManual:transmissionType,
+                                maxPower:power,
+                                topSpeed:speed,
+                                vehicleImage:url,
+                                accelerationTime:acceleration,
+    
+                            }
+                            console.log(sendData)
+                            const access_token = window.localStorage.getItem('user_token')
+                            
+                            const response = await fetch(`http://localhost:8080/updateVehicle`,
+                            {
+                               method: "PUT", 
+                               headers: {'Content-Type':'application/json',
+                               'Authorization': `Bearer ${access_token}`,
+                            },
+                               body:JSON.stringify(sendData)
+                            })
+                            const addVehicle = await response.json();
+    
+                            console.log(addVehicle)
+    
+                            onClose()
+                           window.location.reload()
+                            return null
+                        }))
+                }
+            );
+        }else{
+            const sendData =
+            {
+                id: id,
+                booked: false,
+                fuelElectric: source,
+                ac: ac,
+                type: "",
+                seats: seats,
+                vehicleName: vehicleName,
+                vehicleType: vehicleType,
+                vehicleRating: 0,
+                vehicleReview: 0,
+                vehiclePrice: vehiclePrice,
+                vehicleNumber:vehicleNumber,
+                autoManual:transmissionType,
+                maxPower:power,
+                topSpeed:speed,
+                vehicleImage:viewFile,
+                accelerationTime:acceleration,
 
-                        }
-                        console.log(sendData)
-                        const access_token = window.localStorage.getItem('user_token')
-                        
-                        const response = await fetch(`http://localhost:8080/updateVehicle`,
-                        {
-                           method: "PUT", 
-                           headers: {'Content-Type':'application/json',
-                           'Authorization': `Bearer ${access_token}`,
-                        },
-                           body:JSON.stringify(sendData)
-                        })
-                        const addVehicle = await response.json();
-
-                        console.log(addVehicle)
-
-                        onClose()
-                       window.location.reload()
-                        return null
-                    }))
             }
-        );
+            console.log(sendData)
+            const access_token = window.localStorage.getItem('user_token')
+            
+            const response = await fetch(`http://localhost:8080/updateVehicle`,
+            {
+               method: "PUT", 
+               headers: {'Content-Type':'application/json',
+               'Authorization': `Bearer ${access_token}`,
+            },
+               body:JSON.stringify(sendData)
+            })
+            const addVehicle = await response.json();
+
+            console.log(addVehicle)
+
+            onClose()
+           window.location.reload()
+            return null
+        }
     }
 
 
