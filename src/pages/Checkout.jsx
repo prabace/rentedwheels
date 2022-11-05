@@ -193,7 +193,20 @@ const Checkout = ({ location, history }) => {
                         })
                         const bookingData = await response.json()
                         console.log(bookingData)
-                        if (bookingData.booked) alert("Booking Successful!! Thank you")
+                        if (bookingData.booked){
+                            const response = await fetch(`http://localhost:8080/updateVehicle/${location.search.slice(4)}`, {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${access_token}`,
+                                },
+                                body: JSON.stringify({
+                                    ...vehicleData,
+                                    booked: true})
+                            })
+                            const data = await response.json()
+                            alert("Booking Successful!! Thank you")  
+                        } 
                     }))
             }
 
