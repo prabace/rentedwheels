@@ -70,7 +70,7 @@ const Adminreview = ({location,history}) => {
                 },
                 body: JSON.stringify({
                     ...vehicleData,
-                    rating:rating,
+                    vehicleRating:rating,
                     vehicleReview:reviewCount
                 })
             })
