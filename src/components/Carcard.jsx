@@ -125,7 +125,7 @@ const Carcard = (props) => {
                     </div>
                     </div>
                     <div className="mt-4">
-                      <button className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Check reviews</button>
+                      <Link to={`/admin/adminReview?id=${props.id}`}><button className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Check reviews</button></Link>
                     </div>
 
                  

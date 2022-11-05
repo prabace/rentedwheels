@@ -184,7 +184,10 @@ const Order = (props) => {
                      <h1 className='text-3xl font-medium px-4 my-8'>Reviews</h1>
                     {
                         Object.keys(reviews).map((key) => 
-                        <Review ratings={reviews[key].ratings} comment={reviews[key].comment} />)
+                        <Review ratings={reviews[key].ratings} comment={reviews[key].comment} 
+                        username={reviews[key].userName}
+                        ratingDate={reviews[key].ratingDate}
+                        />)
 
                     }
                 </div>

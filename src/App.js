@@ -100,9 +100,7 @@ function App() {
           <Route exact path="/admin/dashboard">
           <Dashboard />
         </Route>
-        <Route exact path="/admin/adminreview">
-          <Adminreview />
-        </Route>
+        <Route exact path="/admin/adminreview" render={(routeProps) => <Adminreview {...routeProps} />}/>
         </Route>
 
       </main>

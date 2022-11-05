@@ -17,16 +17,28 @@ import profile from '../assets/profile.svg'
 import Rating from '@mui/material/Rating';
 import { useState, useEffect } from 'react';
 
-const Adminreview = (props) => {
-
-    const [submitted, setSubmitted] = useState(false)
-    const [rating, setRating] = useState(0)
-    const [comment, setComment] = useState('')
+const Adminreview = ({location,history}) => {
     const [reviews, setReviews] = useState([])
+    const [vehicleData, setvehicleData] = useState([])
+    const vehicleId=location.search.slice(4)
 
+    async function getVehicle() {     //restrict to checkout page when search is null
+        if (location.search == "") {
+            history.push("/app/addCars")
+        }
+        const access_token = window.localStorage.getItem('user_token')
+        const response = await fetch(`http://localhost:8080/getVehicle/${location.search.slice(4)}`, {
+            method: "GET",
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+            }
+        });
+        const vehicleData = await response.json();
+        setvehicleData(vehicleData)
+    }
     async function getReviews() {
         const access_token = window.localStorage.getItem('user_token')
-        const response = await fetch(`http://localhost:8080/ratings/${props.id}`, {
+        const response = await fetch(`http://localhost:8080/ratings/${location.search.slice(4)}`, {
             method: "GET",
             headers: {
                 'Authorization': `Bearer ${access_token}`
@@ -38,31 +50,23 @@ const Adminreview = (props) => {
     }
 
     useEffect(() => {
+        getVehicle();
         getReviews()
-    }, [props.id])
 
-    const handleSubmit = async (evt) => {
-        const userID = parseInt(window.localStorage.getItem('id'))
-        const vehicleID = parseInt(props.id)
+    }, [vehicleId])
+
+    const handleDelete = async (evt,reviewId) => {
         evt.preventDefault()
-        const sendData = {
-            rating: rating,
-            comment: comment
-        }
-
         const access_token = window.localStorage.getItem('user_token')
 
-        const response = await fetch(`http://localhost:8080/rate/${userID}/${vehicleID}?comment=${comment}&rating=${rating}`, {
-            method: 'POST',
+        const response = await fetch(`http://localhost:8080/deleteRating/${reviewId}`, {
+            method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${access_token}`
             },
         })
         const data = await response.text()
         console.log(data)
-        setRating(0)
-        setComment('')
         await getReviews()
         return
     }
@@ -71,15 +75,15 @@ const Adminreview = (props) => {
         <div className='mx-40 mt-20'>
             <div className='shadow-2xl mx-4'>
                 <div className='mx-4 flex flex-row justify justify-between mt-4'>
-                    <p className='text-2xl font-semibold'>{props.vehicleName}</p>
+                    <p className='text-2xl font-semibold'>{vehicleData.vehicleName}</p>
                     
                 </div>
                 <div className='mx-4'>
-                    <Rating name="half-rating" defaultValue={5} readOnly />
+                    <Rating name="half-rating" defaultValue={parseInt(vehicleData.vehicleRating)} readOnly />
                 </div>
                 <div className='flex justify justify-center'>
 
-                    <img className='w-auto h-[250px] lg:h-[350px]' src={props.vehicleImage} />
+                    <img className='w-auto h-[250px] lg:h-[350px]' src={vehicleData.vehicleImage} />
                 </div>
                
                 <div className='flex flex-row'>
@@ -92,7 +96,7 @@ const Adminreview = (props) => {
                                 Max. Power
                             </div>
                             <div className='mt-3 font-bold text-xl text-[#f9a826]'>
-                                {props.maxPower}
+                                {vehicleData.maxPower}
                             </div>
                             <div className='text-gray-500'>
                                 hp
@@ -112,7 +116,7 @@ const Adminreview = (props) => {
                                 0-60 mph
                             </div>
                             <div className='mt-3 font-bold text-xl text-[#f9a826]'>
-                                {props.accelerationTime}
+                                {vehicleData.accelerationTime}
                             </div>
                             <div className='text-gray-500'>
                                 sec
@@ -133,7 +137,7 @@ const Adminreview = (props) => {
                                 Top Speed
                             </div>
                             <div className='mt-3 font-bold text-xl text-[#f9a826]'>
-                                {props.topSpeed}
+                                {vehicleData.topSpeed}
                             </div>
                             <div className='text-gray-500'>
                                 mph
@@ -158,9 +162,9 @@ const Adminreview = (props) => {
                             <div className='flex grid-cols-2 justify justify-between'>
                                 <div>
 
-                                <Review ratings={reviews[key].ratings} comment={reviews[key].comment} />
+                                <Review ratings={reviews[key].ratings} comment={reviews[key].comment} username={reviews[key].userName} ratingDate={reviews[key].ratingDate} />
                                 </div>
-                                <div className=''>
+                                <div onClick={(evt)=>handleDelete(evt,reviews[key].id)} className=''>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#f9a826]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
