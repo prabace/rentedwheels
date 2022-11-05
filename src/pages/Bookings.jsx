@@ -1,9 +1,5 @@
 import {React, useEffect, useState} from 'react'
 
-import raptor from '../assets/ford-raptor.jpg'
-
-
-
 
 const Bookings = () => {
     const [bookingData, setbookingData]= useState([])

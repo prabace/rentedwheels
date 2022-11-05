@@ -17,6 +17,7 @@ const Order = (props) => {
     const [rating,setRating]= useState(0)
     const [comment,setComment]= useState('')
     const [reviews, setReviews] = useState([])
+    const [vehicle, setVehicle] = useState({})
 
     async function getReviews() {
         const access_token = window.localStorage.getItem('user_token')
@@ -30,9 +31,22 @@ const Order = (props) => {
         setReviews(data)
         return
       }
+    async function getVehicle() {
+        const access_token = window.localStorage.getItem('user_token')
+        const response = await fetch(`http://localhost:8080/getVehicle/${props.id}`, {
+          method: "GET",
+          headers:{
+            'Authorization':`Bearer ${access_token}`
+          }
+        });
+        const data = await response.json();
+        setVehicle(data)
+        return
+      }
 
     useEffect(() => {
         getReviews()
+        getVehicle()
       }, [props.id])
 
     const handleSubmit=async (evt)=>{
@@ -54,6 +68,30 @@ const Order = (props) => {
             },
         })
         const data= await response.text()
+        if(data==='Rated'){
+            const response1=await fetch(`http://localhost:8080/rating/${props.id}`, {
+                method: 'GET',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${access_token}`
+                },
+            })
+            const data1= await response1.text()
+            const vehicleReview= parseInt(vehicle.vehicleReview)+1
+            const response = await fetch (`http://localhost:8080/updateVehicle`, {
+                method: 'PUT',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${access_token}`
+                },
+                body: JSON.stringify({
+                    ...vehicle,
+                    vehicleRating:data1,
+                    vehicleReview:vehicleReview
+                })
+            })
+            const data2= await response.json()
+        }
         console.log(data)
         setRating(0)
         setComment('')
@@ -74,7 +112,7 @@ const Order = (props) => {
                     </div>
                 </div>
                 <div className='mx-4'>
-                <Rating name="half-rating" defaultValue={5} readOnly />
+                <Rating name="half-rating" precision={0.5} defaultValue={parseInt(props.vehicleRating)} readOnly />
                 </div>
                 <div className='flex justify justify-center'>
 

@@ -52,6 +52,7 @@ function Cars() {
     value={vehicleData[keys].vehicleRating}
     id={vehicleData[keys].id}
     img={vehicleData[keys].vehicleImage}
+    vehicleRating={vehicleData[keys].vehicleRating}
   /> </Link>)
 
 
@@ -69,7 +70,7 @@ function Cars() {
   const [select, setSelect] = useState("default")
 
   const filteredData = Object.keys(vehicleData).filter(function(el){
-    return vehicleData[el].vehicleType==select
+    return vehicleData[el].vehicleType===select
   })
   const filteredCard = filteredData.map(keys=>
     <Carcard price={vehicleData[keys].vehiclePrice}
@@ -77,7 +78,7 @@ function Cars() {
       title={vehicleData[keys].vehicleName}
       img={vehicleData[keys].vehicleImage}
       id={vehicleData[keys].id}
-
+      vehicleRating={vehicleData[keys].vehicleRating}
     />
 
   )

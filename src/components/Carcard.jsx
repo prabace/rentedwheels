@@ -13,24 +13,8 @@ import { Updatecars } from './Updatecars';
 const Carcard = (props) => {
 
 
-  const [bookingData, setBookingData] = useState('')
   const [openForm, setOpenForm] = useState(false)
 
-  useEffect(() => {
-    async function getVehicleBooking() {
-      const response = await fetch(`http://localhost:8080/getBooking/${props.id}`, {
-        method: "GET"
-      });
-      const data = await response.json();
-
-      console.log(data)
-      setBookingData(data)
-
-    }
-    getVehicleBooking()
-  }, [])
-
-  console.log(bookingData)
   console.log(props)
 
   const svg = props.type == "electric" ? <svg xmlns="http://www.w3.org/2000/svg" class="h-12 border rounded-2xl bg-gray-100 text-blue-500 mr-3 px-3 py-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -39,17 +23,16 @@ const Carcard = (props) => {
     <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
   </svg>
 
-  const handleDelete = () => {
-    fetch(`http://localhost:8080/deleteVehicle/${props.id}`, {
-      method: "DELETE"
-    }).then(data => {
-      window.location.reload()
-      return
-    }
-
-    )
-
-
+  const handleDelete = async() => {
+    const access_token = window.localStorage.getItem('user_token')
+    const response=await fetch(`http://localhost:8080/deleteVehicle/${props.id}`, {
+      method: "DELETE",
+      headers:{
+        'Authorization':`Bearer ${access_token}`
+      }
+    });
+    const data = await response.text();
+    window.location.reload ();
   }
 
 
@@ -69,7 +52,7 @@ const Carcard = (props) => {
             <h2 className='text-lg font-medium'>Rs.{props.price}/Day</h2>
           </div>
           <div className='-mt-5 flex flex-row justify-between'>
-            <Rating name="read-only" value={props.value} readOnly />
+            <Rating name="read-only" precision={0.5} value={props.value} readOnly />
 
             <h6 className='ml-4 text-gray-500'>{props.reviews} reviews</h6>
             {props.booked && <h6 className=' px-2 bg-red-500 rounded-full text-white'>Booked</h6>}
@@ -121,7 +104,7 @@ const Carcard = (props) => {
                       <button onClick={() => setOpenForm(true)} className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Update</button>
                     </div>
                     <div>
-                      <button onClick={handleDelete} className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Delete</button>
+                      <button type="button" onClick={handleDelete} className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Delete</button>
                     </div>
                     </div>
                     <div className="mt-4">
