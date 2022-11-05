@@ -41,7 +41,7 @@ const Carcard = (props) => {
      fetch(`http://localhost:8080/deleteVehicle/${props.id}`, {
       method: "DELETE"
     }).then(data=>{window.location.reload()
-    return
+    return 
     }
     
 )
