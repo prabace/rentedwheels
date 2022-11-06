@@ -33,9 +33,8 @@ function App() {
     <div className='App'>
 
       <main>
-        <Route path='/app'>
+        <Route path='/app' render={(routeProps)=> <Navbar {...routeProps}/>}>
 
-          <Navbar />
           
           <Route path="/app/home">
 

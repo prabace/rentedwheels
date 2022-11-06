@@ -6,14 +6,16 @@ import { Link } from 'react-router-dom'
 
 import profile from '../assets/profile.svg'
 
-const Navbar = () => {
+const Navbar = ({history}) => {
+    const [admin,setAdmin]=useState(JSON.parse(window.localStorage.getItem('admin'))||false)
     const [user,setUser]= useState(window.localStorage.getItem('signedIn')||false)
     const [userEmail,setUserEmail]= useState(window.localStorage.getItem('email')||'')
     window.onstorage=()=>{
         setUser(window.localStorage.getItem('signedIn'))
         setUserEmail(window.localStorage.getItem('email'))
+        setAdmin(JSON.parse(window.localStorage.getItem('admin'))||false)
     }
- 
+    admin && history.push('/admin/dashboard')
     const [nav, setNav] = useState(false)
     const handleClick = () => setNav(!nav)
 
@@ -24,7 +26,10 @@ const Navbar = () => {
         window.localStorage.removeItem('email')
         window.localStorage.removeItem('id')
         window.localStorage.removeItem('user_token')
+        window.localStorage.removeItem('admin')
+        setAdmin(false)
         setUser(false)
+        history.push('/app/home')
     }
 
     return (
