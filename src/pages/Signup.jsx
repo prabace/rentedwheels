@@ -121,14 +121,16 @@ const Signup = ({ history }) => {
 
       <div className='w-full h-screen  flex flex-col justify-center items-center  lg:grid  lg:grid-cols-2'>
         <img className='fixed hidden lg:block inset-0 h-screen object-cover  z-[-1]' src={wave} />
-        <img className='hidden w-[350px] lg:block w-1/2 hover:scale-150 transition-all duration-500 transform mx-auto ' src={signup} />
+        <img className='hidden lg:block w-1/2 hover:scale-150 transition-all duration-500 transform mx-auto ' src={signup} />
 
         <div className="w-1/2 h-screen flex flex-col justify-center items-center" >
-          <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-4'>Sign Up</h1>
-          <h2 className='mb-20 text-gray-500 text-sm md:text-lg lg:text-lg'>Already have an account? <a className='text-[#f9a826]' href='/app/signin'>LogIn</a></h2>
+         
+          <h1 className='text-4xl md:text-3xl mt-10 lg:text-4xl font-bold mb-4'>Sign Up</h1>
+          <h2 className='mb-5 text-gray-500 text-sm md:text-lg lg:text-md'>Already have an account? <a className='text-[#f9a826]' href='/app/signin'>LogIn</a></h2>
+         
           <form onSubmit={handleSubmit(registerUser)} id="signUp" className='w-full flex flex-col justify-center items-center '>
             <div className='flex justify-center'>
-              <img className='w-md h-[125px] mb-5' src={avatar} />
+              <img className='w-md h-[100px] mb-5' src={avatar} />
             </div>
             <div class="w-full mb-2 border-b border-[#f9a826]">
 
@@ -195,22 +197,7 @@ const Signup = ({ history }) => {
               {errors.email && <p className='text-red-500 italic'>Please check the Email</p>}
             </div>
 
-            <div class="w-full mb-2 border-b border-[#f9a826]">
 
-              <label class="block text-gray-700 text-sm font-bold mb-2 relative" for="dob">
-                DOB
-              </label>
-              <input class=" appearance-none bg-transparent border-none rounded w-full py-2 px-7 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="dob"
-                type="date"
-                onChange={(evt) => handleChange(evt, 'dob')}
-                {...register("dob",
-                  { required: true })}
-              />
-            </div>
-            <div className='mb-6'>
-              {errors.dob && <p className='text-red-500 italic'>Please check your DOB</p>}
-            </div>
 
             <div class="w-full mb-2 border-b border-[#f9a826]">
 

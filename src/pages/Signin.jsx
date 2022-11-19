@@ -68,7 +68,7 @@ const checkSignIn=async(data,evt)=>{
     const admins=['prabeshdace','binamraacharya','sunandhanghimire']
     if(ret){ 
       window.localStorage.setItem('signedIn',userPresent)
-      window.localStorage.setItem('email',email)
+      window.localStorage.setItem('username',person.username)
       window.localStorage.setItem('id',person.id)
       window.dispatchEvent(new Event('storage'))
       if (admins.includes(person.username)){
@@ -92,12 +92,12 @@ const checkSignIn=async(data,evt)=>{
         <img className='fixed hidden lg:block inset-0 h-screen object-cover  z-[-1]' src={wave} alt="wave"/>
         <img className='hidden lg:block w-1/2 hover:scale-150 transition-all duration-500 transform mx-auto ' src={unlock} alt="unlock" />
 
-        <div className="w-1/2 h-screen flex flex-col justify-center items-center" >
-          <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-4'>Log In</h1>
-          <h2 className='mb-20 text-gray-500 text-sm md:text-lg lg:text-lg'>Don't have an account? <a className='text-[#f9a826]' href='/app/signup'>Signup</a></h2>
+        <div className="w-1/2 h-screen flex flex-col justify-center items-center " >
+          <h1 className='text-4xl md:text-5xl lg:text-4xl mt-10 font-bold mb-4'>Log In</h1>
+          <h2 className='mb-5 text-gray-500 text-sm md:text-lg lg:text-md'>Don't have an account? <a className='text-[#f9a826]' href='/app/signup'>Signup</a></h2>
           <form id="sign-in-form" onSubmit={handleSubmit(checkSignIn)} className='flex flex-col justify-center items-center'>
             <div className='flex justify-center'>
-              <img className='w-md h-[125px] mb-5' src={avatar} alt="avatar"/>
+              <img className='w-md h-[100px] mb-5' src={avatar} alt="avatar"/>
             </div>
 
             <div class="mb-6 border-b border-[#f9a826]">
@@ -112,6 +112,7 @@ const checkSignIn=async(data,evt)=>{
               class=" appearance-none bg-transparent border-none rounded w-full py-2 px-7 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="username" 
               type="text" 
+              placeholder=' Enter your email'
               onChange={(evt)=> handleChange(evt,'email')}
               {...register("email",
               {
@@ -137,7 +138,7 @@ const checkSignIn=async(data,evt)=>{
               id="password" 
               onChange={(evt)=> handleChange(evt,'password')}
               type="password" 
-              placeholder="****************" 
+              placeholder=" ****************" 
               {...register("password",
                   { required: true,
                     pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/
@@ -153,15 +154,13 @@ const checkSignIn=async(data,evt)=>{
               <button form='sign-in-form' class="bg-[#f9a826] hover:bg-white hover:text-[#f9a826] font-bold w-full  py-2 mr-5 mb-4 rounded-full focus:outline-none focus:shadow-outline border-[#f9a826] text-xl lg:px-20" type="submit">
                 Sign In
               </button>
-              <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-                Forgot Password?
-              </a>
+             
             </div>
 
 
           </form>
           <p class="text-center text-gray-500 text-xs mt-5">
-            &copy;2020 Acme Corp. All rights reserved.
+            &copy;2022 RentedWheels. All rights reserved.
           </p>
         </div>
 

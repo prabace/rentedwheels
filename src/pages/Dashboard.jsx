@@ -58,9 +58,12 @@ function Dashboard() {
       console.log(bookings)
     
     const display= Object.keys(bookings).map(keys=>
-        <div className='my-5 mx-4 grid grid-cols-5 justify-items-center'>
+        <div className='my-5 mx-4 grid grid-cols-7 justify-items-center'>
                         <div className=''>
                             <h2>{parseInt(keys)+parseInt(1)}</h2>
+                        </div>
+                        <div>
+                            <h2>{bookings[keys].bookedBy.username}</h2>
                         </div>
                         <div>
                             <h2>{bookings[keys].vprice}</h2>
@@ -72,15 +75,19 @@ function Dashboard() {
                             <h2>{bookings[keys].vname}</h2>
                         </div>
                         <div>
+                            <a href={bookings[keys].citizenshipAttachment} target="_blank"><h2 className='underline text-blue-500'>Click Here</h2></a>
+                        </div>
+                        <div>
                             <h2>{bookings[keys].vnumber}</h2>
                         </div>
+                       
 
                     </div>
         )
     return (
-        <div className=' bg-gray-100 mx-40 my-20 h-screen'>
+        <div className=' mx-20 my-20 h-screen'>
 
-            <div className='mx-40'>
+            <div className='mx-20'>
                 <div className='grid grid-cols-3 gap-x-20 '>
                     <div className=' bg-gradient-to-r from-cyan-500 to-blue-500border-2  mx-4 px-2 my-3 h-20 flex flex-row gap-x-5 justify-center items-center'>
 
@@ -142,9 +149,12 @@ function Dashboard() {
                     <div className='my-5 mx-4'>
                         <h1 className='text-2xl font-semibold'>Orders</h1>
                     </div>
-                    <div className='border-2 bg-slate-200 my-5 mx-4 grid grid-cols-5 justify-items-center'>
+                    <div className='border-2 bg-slate-200 my-5 mx-4 grid grid-cols-7 justify-items-center'>
                         <div className=''>
                             <h1 className='font-semibold'>Id</h1>
+                        </div>
+                        <div className=''>
+                            <h1 className='font-semibold'>Username</h1>
                         </div>
                         <div>
                             <h1 className='font-semibold'>Price</h1>
@@ -153,10 +163,14 @@ function Dashboard() {
                             <h1 className='font-semibold'>Payment</h1>
                         </div>
                         <div>
-                            <h1 className='font-semibold'>Vehicle Booked</h1>
+                            <h1 className='font-semibold'>Vehicle Name</h1>
+                        </div>
+                        
+                        <div>
+                            <h1 className='font-semibold'>Citizenship</h1>
                         </div>
                         <div>
-                            <h1 className='font-semibold'>Vehicle Number</h1>
+                            <h1 className='font-semibold'>V.Number</h1>
                         </div>
 
                     </div>

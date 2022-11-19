@@ -7,15 +7,16 @@ import profile from '../assets/profile.svg'
 import { useState } from 'react'
 
 const Admin = ({history}) => {
-   const admin = JSON.parse(window.localStorage.getItem('admin'))
+   const [admin, setAdmin] = useState(JSON.parse(window.localStorage.getItem('admin'))|| false)
    !admin && history.push('/app/signin') 
 
   const [user, setUser] = useState(window.localStorage.getItem('signedIn') || false)
-  const [userEmail, setUserEmail] = useState(window.localStorage.getItem('email') || '')
-  window.onstorage = () => {
-      setUser(window.localStorage.getItem('signedIn'))
-      setUserEmail(window.localStorage.getItem('email'))
-  }
+  const [userName, setuserName] = useState(window.localStorage.getItem('username') || '')
+  window.onstorage=()=>{
+    setUser(window.localStorage.getItem('signedIn'))
+    setuserName(window.localStorage.getItem('username'))
+    setAdmin(JSON.parse(window.localStorage.getItem('admin'))||false)
+}
 
   const [nav, setNav] = useState(false)
   const handleClick = () => setNav(!nav)
@@ -23,8 +24,14 @@ const Admin = ({history}) => {
   const [open, setOpen] = useState(false)
   const handleAvatar = () => setOpen(!open)
   const handleLogOut = () => {
-      window.localStorage.removeItem('signedIn')
-      setUser(false)
+    window.localStorage.removeItem('signedIn')
+    window.localStorage.removeItem('username')
+    window.localStorage.removeItem('id')
+    window.localStorage.removeItem('user_token')
+    window.localStorage.removeItem('admin')
+    setAdmin(false)
+    setUser(false)
+    history.push('/app/home')
   }
 
  
@@ -41,7 +48,7 @@ const Admin = ({history}) => {
                         <Link to="/admin/dashboard">Dashboard</Link>
                     </li>
                     <li>
-                        <Link to="/reviews">Reviews</Link>
+                        <Link to="/admin/addCars">Garage</Link>
                     </li>
                     
                 </ul>
@@ -67,9 +74,10 @@ const Admin = ({history}) => {
 
 
                         <ul className={!open ? 'hidden' : 'absolute mt-3  bg-white rounded-2xl px-4 py-4'} >
-                            {userEmail}
-                            <a href=""> <li className="hover:bg-gray-200  w-full">Profile</li></a>
-                            <li className="hover:bg-gray-200 w-full">My Bookings</li>
+                        <div className="text-[#f9a826]">
+                            {userName}
+                        </div>
+                           
                             <li onClick={handleLogOut} className="hover:bg-gray-200 w-full">Log Out</li>
 
 

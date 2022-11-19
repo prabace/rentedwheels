@@ -33,10 +33,11 @@ function App() {
     <div className='App'>
 
       <main>
-        <Route path='/app' render={(routeProps)=> <Navbar {...routeProps}/>}>
+        <Route path='/app' >
 
-          
+        <Navbar />
           <Route path="/app/home">
+            
 
             <Home />
 

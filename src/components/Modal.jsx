@@ -151,9 +151,9 @@ export const Modal = ({ onClose }) => {
 
     return (
         <div className='w-[100%] h-[100%] flex fixed bg-slate-200/90  top-0 justify-center items-center overflow-scroll z-40 left-0'>
-            <div className="">
+            <div className="mt-80">
                
-                <div className="w-[100%]">
+                <div className="w-[100%] ">
                 <form onSubmit={handleUpload} class="bg-white shadow-md rounded px-10 py-10 w-[600px] mt-[400px]" id="addVehicle" >
                     <div className="-mt-4 mb-6 flex justify-end">
                 <p onClick={onClose}>X</p>
@@ -208,7 +208,7 @@ export const Modal = ({ onClose }) => {
                                 <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">AC</label>
                             </div>
                             <div>
-                                <input onChange={(evt) => handleChange(evt, 'ac')} className='' type="radio" name="na" value="N/A" />
+                                <input onChange={(evt) => handleChange(evt, 'ac')} className='' type="radio" name="AC" value="N/A" />
                                 <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">N/A</label>
                             </div>
                         </div>
@@ -220,11 +220,11 @@ export const Modal = ({ onClose }) => {
                         </label>
                         <div className='grid grid-cols-2'>
                             <div>
-                                <input onChange={(evt) => handleChange(evt, 'transmissionType')} type="radio" name="auto" value="Auto" />
+                                <input onChange={(evt) => handleChange(evt, 'transmissionType')} type="radio" name="transmission" value="Auto" />
                                 <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Auto</label>
                             </div>
                             <div>
-                                <input onChange={(evt) => handleChange(evt, 'transmissionType')} className='' type="radio" name="manual" value="Manual" />
+                                <input onChange={(evt) => handleChange(evt, 'transmissionType')} className='' type="radio" name="transmission" value="Manual" />
                                 <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Manual</label>
                             </div>
                         </div>
@@ -237,11 +237,11 @@ export const Modal = ({ onClose }) => {
                         </label>
                         <div className='grid grid-cols-2'>
                             <div>
-                                <input onChange={(evt) => handleChange(evt, 'source')} type="radio" name="fuel" value="Fuel" />
+                                <input onChange={(evt) => handleChange(evt, 'source')} type="radio" name="source" value="Fuel" />
                                 <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Fuel</label>
                             </div>
                             <div>
-                                <input onChange={(evt) => handleChange(evt, 'source')} className='' type="radio" name="electric" value="Electric" />
+                                <input onChange={(evt) => handleChange(evt, 'source')} className='' type="radio" name="source" value="Electric" />
                                 <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Electric</label>
                             </div>
                         </div>

@@ -2,17 +2,18 @@ import React, { useState } from "react";
 
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import profile from '../assets/profile.svg'
 
-const Navbar = ({history}) => {
+const Navbar = () => {
+    const history = useHistory()
     const [admin,setAdmin]=useState(JSON.parse(window.localStorage.getItem('admin'))||false)
     const [user,setUser]= useState(window.localStorage.getItem('signedIn')||false)
-    const [userEmail,setUserEmail]= useState(window.localStorage.getItem('email')||'')
+    const [userName,setuserName]= useState(window.localStorage.getItem('username')||'')
     window.onstorage=()=>{
         setUser(window.localStorage.getItem('signedIn'))
-        setUserEmail(window.localStorage.getItem('email'))
+        setuserName(window.localStorage.getItem('username'))
         setAdmin(JSON.parse(window.localStorage.getItem('admin'))||false)
     }
     admin && history.push('/admin/dashboard')
@@ -23,7 +24,7 @@ const Navbar = ({history}) => {
     const handleAvatar = () => setOpen(!open)
     const handleLogOut=()=>{
         window.localStorage.removeItem('signedIn')
-        window.localStorage.removeItem('email')
+        window.localStorage.removeItem('username')
         window.localStorage.removeItem('id')
         window.localStorage.removeItem('user_token')
         window.localStorage.removeItem('admin')
@@ -68,8 +69,9 @@ const Navbar = ({history}) => {
 
                         
                         <ul className={!open ? 'hidden' : 'absolute mt-3  bg-white rounded-2xl px-4 py-4'} >
-                            {userEmail}
-                            
+                            <div className="text-[#f9a826]">
+                            {userName}
+                            </div>
                            <a href="http://localhost:3000/app/bookings"> <li className="hover:bg-gray-200 w-full">My Bookings</li></a>
                             <li onClick={handleLogOut} className="hover:bg-gray-200 w-full">Log Out</li>
 

@@ -22,10 +22,10 @@ const Bikecard = (props) => {
 
     <div className='flex grid grid-cols-1'>
 
-      <img className='h-[200px] w-auto' src={props.img} />
+      <img className='h-[150px] w-auto' src={props.img} />
 
       <div className='shadow-2xl rounded-lg px-2 py-2' >
-        <h3 className='text-2xl'>{props.title}</h3>
+        <h3 className='text-xl'>{props.title}</h3>
         <div className='flex flex-row py-3 my-2'>
           <h2 className='text-lg font-medium'>Rs.{props.price}/Day</h2>
         </div>

@@ -64,6 +64,10 @@ function Addcars({history}) {
     img={vehicleData[keys].vehicleImage}
     vehicleRating={vehicleData[keys].vehicleRating}
     vehicleReview={vehicleData[keys].vehicleReview}
+    seats= {vehicleData[keys].seats}
+      ac= {vehicleData[keys].ac}
+      source= {vehicleData[keys].fuelElectric}
+      transmission= {vehicleData[keys].autoManual}
     user='admin'
     history
   /> )
@@ -93,6 +97,10 @@ function Addcars({history}) {
       id={vehicleData[keys].id}
       vehicleRating={vehicleData[keys].vehicleRating}
       vehicleReview={vehicleData[keys].vehicleReview}
+      seats= {vehicleData[keys].seats}
+      ac= {vehicleData[keys].ac}
+      source= {vehicleData[keys].fuelElectric}
+      transmission= {vehicleData[keys].autoManual}
       user='admin'
       history
     />
@@ -130,7 +138,7 @@ function Addcars({history}) {
           </div>
           <div className='border-2 px-2 py-2 flex flex-col justify justify-center'>
           <div>
-          <TwoWheelerIcon sx={{ fontSize: 40 }} onClick={() => setSelect((prev) => { return prev == 'Two-wheelers' ? 'default' : 'Two-wheelers' })} />
+          <TwoWheelerIcon sx={{ fontSize: 40 }} onClick={() => setSelect((prev) => { return prev == 'Two-Wheelers' ? 'default' : 'Two-Wheelers' })} />
           </div>
           <div>
               <h3> Bikes </h3>
@@ -160,12 +168,12 @@ function Addcars({history}) {
       
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 relative gap-x-8 gap-y-28 px-4 pt-12 sm:pt-20 '>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 relative gap-x-8 gap-y-28 px-4 pt-12 sm:pt-20 '>
        
         <div>
             <div className='border-2 shadow-2xl  h-[100%] flex justify-center'>
                 <div className='py-52'> 
-              <button onClick={() => setOpenForm(true)} className='border-none text-black bg-white'> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12"> 
+              <button onClick={() => setOpenForm(true)} className='border-none hover:text-black text-black bg-white'> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12"> 
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 </button>

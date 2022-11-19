@@ -54,6 +54,10 @@ function Cars() {
     img={vehicleData[keys].vehicleImage}
     vehicleRating={vehicleData[keys].vehicleRating}
     booked= {vehicleData[keys].booked}
+    seats= {vehicleData[keys].seats}
+      ac= {vehicleData[keys].ac}
+      source= {vehicleData[keys].fuelElectric}
+      transmission= {vehicleData[keys].autoManual}
   /> </Link>)
 
 
@@ -81,6 +85,10 @@ function Cars() {
       id={vehicleData[keys].id}
       vehicleRating={vehicleData[keys].vehicleRating}
       booked= {vehicleData[keys].booked}
+      seats= {vehicleData[keys].seats}
+      ac= {vehicleData[keys].ac}
+      source= {vehicleData[keys].fuelElectric}
+      transmission= {vehicleData[keys].autoManual}
     />
 
   )
@@ -99,7 +107,7 @@ function Cars() {
         <div className='flex flex-row mx-4 gap-x-2'>
           <div className='border-2 px-2 py-2 flex flex-col justify justify-center'>
             <div>
-              <ElectricCarIcon sx={{ fontSize: 40 }} onClick={() => setSelect((prev) => { return prev === 'Electric' ? 'default' : 'Electric' })} />
+              <ElectricCarIcon sx={{ fontSize: 30 }} onClick={() => setSelect((prev) => { return prev === 'Electric' ? 'default' : 'Electric' })} />
             </div>
             <div>
               <h3> Electric</h3>
