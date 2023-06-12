@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# Rented Wheels
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Rented Wheels is a React-based ride booking application that allows users to book their preferred vehicles for a specified period of time. It uses Java Springboot as a backend and MySQL as a database.
 
-## Available Scripts
+## Features
+- Users can sign up and login to the platform.
+- Users can browse through the available vehicles.
+- Users can book a vehicle for a specified period of time.
+- Users can view their booking history.
 
-In the project directory, you can run:
+## Technologies Used
+- React
+- JavaScript
+- Java Springboot
+- MySQL
 
-### `npm start`
+## Prerequisites
+- Java and Springboot installed on your local machine.
+- MySQL installed on your local machine.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Getting Started
+1. Clone the repository to your local machine.
+2. Navigate to the project directory and run `npm install` to install the project dependencies.
+3. Create a MySQL database and update the database details in the `application.properties` file.
+4. Run the backend server by navigating to the `backend` folder and running the command `./mvnw spring-boot:run`.
+5. Run the frontend server by navigating to the project directory and running the command `npm start`.
+6. The application will be accessible at `http://localhost:3000` in your web browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Backend
+The backend can be found [here](https://github.com/geesunandan/rentedwheels--Backend)
 
-### `npm test`
+## Some Screenshots
+![Screenshot 2022-11-01 at 16-56-36 React App](https://user-images.githubusercontent.com/46207332/209950906-c438495c-b5b7-4333-a614-9c3684cb0960.png)
+![Screenshot 2022-11-01 at 16-55-03 React App](https://user-images.githubusercontent.com/46207332/209950915-39138c1d-ebef-4ae3-9fff-e196407d03c2.png)
+![Screenshot 2022-11-01 at 16-54-26 React App](https://user-images.githubusercontent.com/46207332/209950920-8491b1ac-513f-4b59-99d0-9fb65447cf46.png)
+![Screenshot 2022-11-01 at 16-53-21 React App](https://user-images.githubusercontent.com/46207332/209950924-25b3bbc3-7803-4a83-89cc-80e843aaba75.png)
+![Screenshot 2022-11-01 at 16-52-58 React App](https://user-images.githubusercontent.com/46207332/209950936-51b1b64e-fb3d-4993-a13e-838a53f36f97.png)
+![Screenshot 2022-11-01 at 16-51-34 React App](https://user-images.githubusercontent.com/46207332/209950951-b26021a9-1b5f-4072-af11-e04197d15f04.png)
+![Screenshot 2022-11-01 at 16-51-15 React App](https://user-images.githubusercontent.com/46207332/209950954-411fd732-3f7f-45bd-851b-82514503a350.png)
+![Screenshot 2022-11-01 at 16-50-40 React App](https://user-images.githubusercontent.com/46207332/209950956-b74c62c9-ff47-4209-9532-e477bea757a2.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
