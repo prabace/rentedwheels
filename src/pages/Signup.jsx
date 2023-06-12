@@ -90,7 +90,6 @@ const Signup = ({ history }) => {
       admin: false,
       deleted: false,
       username: data.email.split('@')[0]
-
     }
 
 

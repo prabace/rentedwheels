@@ -48,14 +48,29 @@ const Carcard = (props) => {
 
         <div className='' >
           <h3 className='text-xl '>{props.title}</h3>
-          <div className='flex flex-row py-3 my-2'>
+          <div className='flex flex-row py-3 my-2 gap-x-40'>
+            <div>
             <h2 className='text-lg font-medium -mt-3'>Rs.{props.price}/Day</h2>
+            </div>
+
+            <div className='-mt-4'>
+            {props.user == 'user'?
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="orange" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+ 
+            </svg>:
+            <h1 className='hidden'>no logo</h1>
+            }
+
+            </div>
+
           </div>
           <div className='-mt-5 flex flex-row justify-between'>
             <Rating name="read-only" precision={0.1} value={parseFloat(props.vehicleRating)} readOnly />
 
             <h6 className='ml-4 text-gray-500'>{props.reviews} reviews</h6>
-            {props.booked && <h6 className=' px-2 bg-red-500 rounded-full text-white'>Booked</h6>}
+            {props.booked ? <h6 className=' px-2 bg-red-500 rounded-full text-white'>Booked</h6>:
+            <h1 className='hidden'>Not booked</h1>}
 
           </div>
 

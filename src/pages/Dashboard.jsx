@@ -141,9 +141,9 @@ function Dashboard() {
 
                 </div>
 
-                <div className=' bg-white py-10'>
+                {/* <div className=' bg-white py-10'>
                     <Chart />
-                </div>
+                </div> */}
 
                 <div className=' bg-white'>
                     <div className='my-5 mx-4'>

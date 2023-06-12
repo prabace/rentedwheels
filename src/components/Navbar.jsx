@@ -46,6 +46,9 @@ const Navbar = () => {
                     <li>
                         <Link to="/app/cars">Garage</Link>
                     </li>
+                    <li>
+                        <Link to="/app/users">Users</Link>
+                    </li>
                 </ul>
 
 

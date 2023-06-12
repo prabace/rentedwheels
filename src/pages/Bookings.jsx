@@ -48,6 +48,7 @@ const Bookings = () => {
     const today= new Date()
     const bookingEnd= new Date(bookingData[key].toDate)
     return <div className='grid grid-cols-3'>
+                       
                     <div className='mx-6 my-8 flex flex-row gap-x-80'>
                         <div className=''>
                             <h1 className='text-xl'>{bookingData[key].vehicle.vehicleName}</h1>
@@ -94,9 +95,10 @@ const Bookings = () => {
     
 });
     return (
-        <div className='h-screen  my-10'>
+        <div className='h-screen  my-10 mx-10'>
             <div className=' shadow-2xl  '>
-                
+            <h1 className='font-semibold text-2xl '>My Bookings</h1>
+
                 {displayBooking}
 
             </div>

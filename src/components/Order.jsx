@@ -86,7 +86,7 @@ const Order = (props) => {
                 body: JSON.stringify({
                     ...vehicle,
                     vehicleRating:data1,
-                    vehicleReview:vehicleReview
+                    vehicleReview:vehicleReview,
                 })
             })
             const data2= await response.json()

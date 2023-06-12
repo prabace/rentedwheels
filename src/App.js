@@ -24,6 +24,7 @@ import Features from './components/Features';
 import { useEffect } from 'react';
 import { Footer } from './components/Footer';
 import Adminreview from './pages/Adminreview';
+import Users from './pages/Users';
 
 function App() {
   
@@ -49,6 +50,13 @@ function App() {
 
             <Footer />
           </Route>
+
+          <Route exact path="/app/users" >
+            <Users/>
+            </Route>
+       
+    
+
           <Route exact path="/app/signin" render={(routeProps) => <Signin {...routeProps} />} />
 
           <Route exact path="/app/checkout" render={(routeProps) => <Checkout {...routeProps} />} />
