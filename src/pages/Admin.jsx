@@ -50,6 +50,9 @@ const Admin = ({history}) => {
                     <li>
                         <Link to="/admin/addCars">Garage</Link>
                     </li>
+                    <li>
+                        <Link to="/admin/request">Requests</Link>
+                    </li>
                     
                 </ul>
 

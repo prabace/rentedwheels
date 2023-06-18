@@ -68,10 +68,12 @@ function Users({history}) {
       ac= {vehicleData[keys].ac}
       source= {vehicleData[keys].fuelElectric}
       transmission= {vehicleData[keys].autoManual}
-    user='user'
-    history
+    user='admin'
+    history= {history}
   /> )
 
+
+  
 
   /*Categories.map(el =>
   
@@ -101,8 +103,8 @@ function Users({history}) {
       ac= {vehicleData[keys].ac}
       source= {vehicleData[keys].fuelElectric}
       transmission= {vehicleData[keys].autoManual}
-      user='user'
-      history
+      user='admin'
+      history= {history}
     />
 
   )

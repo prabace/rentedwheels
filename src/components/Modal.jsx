@@ -68,6 +68,7 @@ export const Modal = ({ onClose }) => {
             case 'seats':
                 setSeats(evt.target.value);
                 break;
+         
 
             default: break;
         }
@@ -111,6 +112,7 @@ export const Modal = ({ onClose }) => {
                             fuelElectric: source,
                             ac: ac,
                             type: "",
+                            vehicleStatus: "pending",
                             seats: seats,
                             vehicleName: vehicleName,
                             vehicleType: vehicleType,
@@ -123,10 +125,14 @@ export const Modal = ({ onClose }) => {
                             topSpeed:speed,
                             vehicleImage:url,
                             accelerationTime:acceleration,
-
                         }
                         console.log(sendData)
                         const access_token = window.localStorage.getItem('user_token')
+
+                        const admins=['prabeshdace','binamraacharya','sunandhanghimire']
+                        if (!admins.includes(window.localStorage.getItem('username'))){
+                            console.log("user")
+                        }
                         
                         const response = await fetch(`http://localhost:8080/addWheel`,
                         {
@@ -147,6 +153,8 @@ export const Modal = ({ onClose }) => {
             }
         );
     }
+
+    
 
 
     return (

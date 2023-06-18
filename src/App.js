@@ -18,13 +18,14 @@ import Chart from './components/Chart';
 import Khalti from './components/Khalti/Khalti';
 import Addcars from './pages/Addcars';
 import { Modal } from './components/Modal';
-
+import Sliders from './components/Sliders';
 import { Route,Navigate } from 'react-router-dom'
 import Features from './components/Features';
 import { useEffect } from 'react';
 import { Footer } from './components/Footer';
 import Adminreview from './pages/Adminreview';
 import Users from './pages/Users';
+import Request from './pages/Request';
 
 function App() {
   
@@ -94,6 +95,10 @@ function App() {
           <Khalti />
         </Route>
       
+        <Route exact path="/app/slider">
+          <Sliders />
+        </Route>
+
         <Route exact path="/app/modal">
           <Modal />
         </Route>
@@ -105,6 +110,8 @@ function App() {
         </Route>
         <Route exact path="/admin/adminreview" render={(routeProps) => <Adminreview {...routeProps} />}/>
         <Route exact path="/admin/addCars" render={(routeProps) => <Addcars {...routeProps} />}/>
+        <Route exact path="/admin/request" render={(routeProps) => <Request {...routeProps} />}/>
+        
         </Route>
 
       </main>

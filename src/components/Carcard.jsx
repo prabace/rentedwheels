@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 import { Updatecars } from './Updatecars';
+import { CheckCircleIcon } from '@heroicons/react/outline';
 
 
 
@@ -23,19 +24,41 @@ const Carcard = (props) => {
     <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
   </svg>
 
-  const handleDelete = async() => {
+  const handleDelete = async () => {
     const access_token = window.localStorage.getItem('user_token')
-    const response=await fetch(`http://localhost:8080/deleteVehicle/${props.id}`, {
+    const response = await fetch(`http://localhost:8080/deleteVehicle/${props.id}`, {
       method: "DELETE",
-      headers:{
-        'Authorization':`Bearer ${access_token}`
+      headers: {
+        'Authorization': `Bearer ${access_token}`
       }
     });
     const data = await response.text();
-    window.location.reload ();
+    window.location.reload();
   }
 
- console.log(props)
+  const handleAccept = async () => {
+    const access_token = window.localStorage.getItem('user_token')
+    const response = await fetch(`http://localhost:8080/updateVehicle/${props.id}`, {
+      method: "PUT",
+      headers: {
+        'Authorization': `Bearer ${access_token}`
+      },
+      body: JSON.stringify({accept: true})
+    });
+    const data = await response.text();
+    window.location.reload();
+  }
+  console.log(props)
+
+  let checkCondition
+
+  if (props.booked) {
+    checkCondition = <h6 className=' px-2 bg-red-500 rounded-full text-white'>Booked</h6>
+  } else if (props.status == "pending") {
+    checkCondition = <h6 className=' px-2 bg-red-500 rounded-full text-white'>Pending</h6>
+  } else {
+    checkCondition = <h1 className='hidden'>Not booked</h1>
+  }
 
 
   return (
@@ -50,17 +73,17 @@ const Carcard = (props) => {
           <h3 className='text-xl '>{props.title}</h3>
           <div className='flex flex-row py-3 my-2 gap-x-40'>
             <div>
-            <h2 className='text-lg font-medium -mt-3'>Rs.{props.price}/Day</h2>
+              <h2 className='text-lg font-medium -mt-3'>Rs.{props.price}/Day</h2>
             </div>
 
             <div className='-mt-4'>
-            {props.user == 'user'?
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="orange" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
- 
-            </svg>:
-            <h1 className='hidden'>no logo</h1>
-            }
+              {props.user == 'user' ?
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="orange" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+
+                </svg> :
+                <h1 className='hidden'>no logo</h1>
+              }
 
             </div>
 
@@ -69,8 +92,8 @@ const Carcard = (props) => {
             <Rating name="read-only" precision={0.1} value={parseFloat(props.vehicleRating)} readOnly />
 
             <h6 className='ml-4 text-gray-500'>{props.reviews} reviews</h6>
-            {props.booked ? <h6 className=' px-2 bg-red-500 rounded-full text-white'>Booked</h6>:
-            <h1 className='hidden'>Not booked</h1>}
+
+            {checkCondition}
 
           </div>
 
@@ -114,6 +137,8 @@ const Carcard = (props) => {
             {
               props.user == 'admin' ?
                 <div>
+                  {props.history.location.pathname.split("/")[2]!== "request"?
+                  <div>
                   <div className="grid grid-cols-2 gap-x-2">
                     <div>
                       <button onClick={() => setOpenForm(true)} className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Update</button>
@@ -121,26 +146,30 @@ const Carcard = (props) => {
                     <div>
                       <button type="button" onClick={handleDelete} className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Delete</button>
                     </div>
-                    </div>
-                    <div className="mt-4">
-                      <Link to={`/admin/adminReview?id=${props.id}`}><button className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Check reviews</button></Link>
-                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <Link to={`/admin/adminReview?id=${props.id}`}><button className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Check Reviews</button></Link>
+                  </div>
 
-                 
+                </div>:
+                 <div className="mt-4">
+                 <Link to={`/admin/adminReview?id=${props.id}`}><button onClick={handleAccept} className='px-10 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Accept</button></Link>
+               </div>
+                }
                 </div>
 
 
                 : <Link to={`/app/checkout?id=${props.id}`}>
                   {/**passing vehicle id to used in checkout page */}
                   <div className='grid grid-cols-2 gap-x-2'>
-                    
+
                     <div>
-                      {!props.booked?
-                      <button  className='px-5 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Book Now</button>:
-                      <button disabled  className='px-8 py-2 rounded-full w-full text-slate-500 bg-white border-slate-400 hover:text-slate-500 '>Book Now</button>
+                      {!props.booked ?
+                        <button className='px-5 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Book Now</button> :
+                        <button disabled className='px-8 py-2 rounded-full w-full text-slate-500 bg-white border-slate-400 hover:text-slate-500 '>Book Now</button>
                       }
-                      </div>
-                    
+                    </div>
+
                   </div>
                 </Link>
             }

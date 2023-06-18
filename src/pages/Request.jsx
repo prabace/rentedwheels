@@ -20,7 +20,7 @@ import RemoveRoadIcon from '@mui/icons-material/RemoveRoad';
 import { Modal } from '../components/Modal';
 
 
-function Addcars({history}) {
+function Request({history}) {
   const [value] = React.useState();
   const [vehicleData, setvehicleData] = useState([])
 
@@ -55,7 +55,9 @@ function Addcars({history}) {
 
   const display = Object.keys(
     vehicleData
-  ).map(keys => <Carcard price={vehicleData[keys].vehiclePrice}
+  ).filter(function(el){
+    return vehicleData[el].vehicleStatus == "pending"
+  }).map(keys => <Carcard price={vehicleData[keys].vehiclePrice}
     type={vehicleData[keys].vehicleType}
     title={vehicleData[keys].vehicleName}
     reviews={vehicleData[keys].vehicleReview}
@@ -71,6 +73,8 @@ function Addcars({history}) {
     user='admin'
     history= {history}
   /> )
+
+  console.log(history)
 
 
   /*Categories.map(el =>
@@ -89,7 +93,11 @@ function Addcars({history}) {
   const filteredData = Object.keys(vehicleData).filter(function(el){
     return vehicleData[el].vehicleType==select
   })
-  const filteredCard = filteredData.map(keys=>
+
+  const filteredCard = filteredData.filter(function(el){
+    
+    return vehicleData[el].vehicleStatus=="pending"
+  }).map(keys=>
     <Carcard price={vehicleData[keys].vehiclePrice}
       type={vehicleData[keys].vehicleType}
       title={vehicleData[keys].vehicleName}
@@ -170,32 +178,14 @@ function Addcars({history}) {
 
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 relative gap-x-8 gap-y-28 px-4 pt-12 sm:pt-20 '>
        
-        <div>
-            <div className='border-2 shadow-2xl  h-[100%] flex justify-center'>
-                <div className='py-52'> 
-              <button onClick={() => setOpenForm(true)} className='border-none hover:text-black text-black bg-white'> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12"> 
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                </button>
-               
-                </div>
 
-            </div>
-        </div>
-        
         {filteredDisplay}
 
       </div>
       
-      {openForm&&
-      <div>
-      <Modal onClose={() => setOpenForm(false)} />
-      </div>
-      
-      }
-      
+    
     </div>
   )
 }
 
-export default Addcars
+export default Request

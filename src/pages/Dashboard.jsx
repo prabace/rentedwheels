@@ -63,7 +63,7 @@ function Dashboard() {
                             <h2>{parseInt(keys)+parseInt(1)}</h2>
                         </div>
                         <div>
-                            <h2>{bookings[keys].bookedBy.username}</h2>
+                            <h2>{bookings[keys].username}</h2>
                         </div>
                         <div>
                             <h2>{bookings[keys].vprice}</h2>
