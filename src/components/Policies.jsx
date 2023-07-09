@@ -42,7 +42,7 @@ export const Policies = (props,{onClose}) => {
             <button onClick={(e) =>{
                     props.setAccept(true);
                     props.submit(e);
-            }} form='checkout-form' type='submit' className='mt-4 p-2'>Accept terms and policies</button>
+            }} form='checkout-form' type='submit' className='mt-4 p-2 text-blue-900'>Accept terms and policies</button>
             </div>
             </form>
         </div>

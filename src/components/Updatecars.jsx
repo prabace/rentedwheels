@@ -22,6 +22,7 @@ export const Updatecars = ({ onClose, id }) => {
     const [speed, setSpeed] = useState('')
     const [acceleration, setAcceleration] = useState('')
     const [seats, setSeats] = useState('')
+    const [status, setStatus] = useState('')
     
     const [imageChanged,setImageChanged]= useState(false)
     const [vehicleInfo, setvehicleInfo] = useState('')
@@ -49,6 +50,7 @@ export const Updatecars = ({ onClose, id }) => {
           setVehicleNumber(data.vehicleNumber)
           setVehiclePrice(data.vehiclePrice)
           setVehicleType(data.vehicleType)
+          setStatus(data.vehicleStatus)
           setAc(data.ac)
           settransmissionType(data.autoManual)
           setSource(data.fuelElectric)
@@ -139,6 +141,7 @@ export const Updatecars = ({ onClose, id }) => {
                         .child(image.name)
                         .getDownloadURL()
                         .then((async(url) => {
+                            const admin  = window.localStorage.getItem('admin')?? false
                             const sendData =
                             {
                                 id: id,
@@ -151,8 +154,10 @@ export const Updatecars = ({ onClose, id }) => {
                                 vehicleType: vehicleType,
                                 vehicleRating: 0,
                                 vehicleReview: 0,
+                                vehicleStatus: status,
                                 vehiclePrice: vehiclePrice,
                                 vehicleNumber:vehicleNumber,
+                                addedByUser: admin? false:true ,
                                 autoManual:transmissionType,
                                 maxPower:power,
                                 topSpeed:speed,
@@ -182,27 +187,30 @@ export const Updatecars = ({ onClose, id }) => {
                 }
             );
         }else{
-            const sendData =
-            {
-                id: id,
-                booked: false,
-                fuelElectric: source,
-                ac: ac,
-                type: "",
-                seats: seats,
-                vehicleName: vehicleName,
-                vehicleType: vehicleType,
-                vehicleRating: 0,
-                vehicleReview: 0,
-                vehiclePrice: vehiclePrice,
-                vehicleNumber:vehicleNumber,
-                autoManual:transmissionType,
-                maxPower:power,
-                topSpeed:speed,
-                vehicleImage:viewFile,
-                accelerationTime:acceleration,
-
-            }
+            const admin  = window.localStorage.getItem('admin')?? false
+                            const sendData =
+                            {
+                                id: id,
+                                booked: false,
+                                fuelElectric: source,
+                                ac: ac,
+                                type: "",
+                                seats: seats,
+                                vehicleName: vehicleName,
+                                vehicleType: vehicleType,
+                                vehicleRating: 0,
+                                vehicleReview: 0,
+                                vehicleStatus: status,
+                                vehiclePrice: vehiclePrice,
+                                vehicleNumber:vehicleNumber,
+                                addedByUser: admin? false:true ,
+                                autoManual:transmissionType,
+                                maxPower:power,
+                                topSpeed:speed,
+                                vehicleImage:viewFile,
+                                accelerationTime:acceleration,
+    
+                            }
             console.log(sendData)
             const access_token = window.localStorage.getItem('user_token')
             
@@ -226,11 +234,11 @@ export const Updatecars = ({ onClose, id }) => {
 
 
     return (
-        <div className='w-[100%] h-[100%] flex fixed bg-slate-200/90  top-0 justify-center items-center overflow-scroll z-40 left-0'>
-            <div className="mt-80">
+        <div className='w-[100%] h-[100%] flex fixed bg-slate-200/90  top-0 justify-center items-center z-40 left-0'>
+            <div className="">
                
-                <div className="w-[100%]">
-                <form onSubmit={handleUpload} class="bg-white shadow-md rounded px-10 py-10 w-[600px] mt-[200px]" id="addVehicle" >
+                <div className="w-[100%] ">
+                <form onSubmit={handleUpload} class="bg-white shadow-md rounded px-10 py-4 w-[600px] h-[450px]  overflow-y-auto" id="addVehicle" >
                     <div className="-mt-4 mb-6 flex justify-end">
                 <p onClick={onClose}>X</p>
                 </div>

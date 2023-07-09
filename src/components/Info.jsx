@@ -1,39 +1,42 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import raptor from '../assets/raptor.jpg'
 import Rating from '@mui/material/Rating';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 
+
 const Info = (props) => {
 
-    const [vehicle, setVehicle] = useState({})
+  const [vehicle, setVehicle] = useState({})
 
 
-   
+console.log(props)
+
+
   return (
     <div className='py-5 flex justify justify-center items-center'>
-    
-        <div className='h-[100%] w-screen grid grid-cols-2 gap-x-40'>
-       
-            <div className='flex justify-center items-center'>
-                <img className=' rounded-2xl' src={props.vehicleImage}/>
+
+
+      <div className='h-[100%] w-screen grid grid-cols-2 gap-x-40'>
+
+
+
+
+        <div className='flex flex-col  gap-y-4 py-6'>
+          <div>
+            <div className='flex flex-col gap-y-2'>
+              <h1 className='text-3xl'>{props.vehicleName}</h1>
             </div>
-       
-            <div className='flex flex-col  gap-y-4 py-6'>
-                <div>
-                <div className='flex flex-col gap-y-2'>
-                    <h1 className='text-3xl'>{props.vehicleName}</h1>
-                </div>
-                <div>
-                    <Rating name="read-only" precision={0.1} value={parseFloat(props.vehicleRating)} readOnly />
-                </div>
-                </div>
-                <div>
-                 <p className='text-gray-500'>
-                     The {props.vehicleName} also offers a spacious and comfortable interior, equipped with advanced technology and safety features. With a standard and quality engine along with {props.autoManual} transmission, it makes for a durability and quality you would want.
-                </p>
-                </div>
-                <div className='flex flex-row gap-x-2 mt-2'>
+            <div>
+              <Rating name="read-only" precision={0.1} value={parseFloat(props.vehicleRating)} readOnly />
+            </div>
+          </div>
+          <div>
+            <p className='text-gray-500'>
+              The {props.vehicleName} also offers a spacious and comfortable interior, equipped with advanced technology and safety features. With a standard and quality engine along with {props.autoManual} transmission, it makes for a durability and quality you would want.
+            </p>
+          </div>
+          <div className='flex flex-row gap-x-2 mt-2'>
             <div className='flex flex-col '>
               <svg xmlns="http://www.w3.org/2000/svg" class="h-10 border rounded-2xl bg-gray-100 text-blue-500 mr-3 px-3 py-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -54,14 +57,14 @@ const Info = (props) => {
             </div>
 
             <div className='flex flex-col'>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 border rounded-2xl bg-gray-100 text-blue-500 mr-3 px-3 py-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-  </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 border rounded-2xl bg-gray-100 text-blue-500 mr-3 px-3 py-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
               <div className='ml-2 text-sm text-gray-400'>
                 {props.fuelElectric}
               </div>
             </div>
-           
+
 
             <div className='flex flex-col'>
               <svg xmlns="http://www.w3.org/2000/svg" class="h-10 border rounded-2xl bg-gray-100 text-blue-500 mr-3 px-3 py-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -72,14 +75,22 @@ const Info = (props) => {
               </div>
             </div>
           </div>
-                <div>
-                  <Link to = {`/app/checkout?id=${props.id}`}>
-                  <button className='p-2 rounded-full'>Book {props.vehicleName}</button>
-                  </Link>
-                </div>
-            </div>
+          <div>
+            <Link to={`/app/checkout?id=${props.id}`}>
+              <div>
+                {!props.booked ?
+                  <button className='px-5 py-2 rounded-full w-full bg-[#f9a826] hover:bg-white hover:text-[#f9a826] border-[#f9a826]'>Book Now</button> :
+                  <button disabled className='px-8 py-2 rounded-full w-full text-slate-500 bg-white border-slate-400 hover:text-slate-500 '>Book Now</button>
+                }
+              </div>
+            </Link>
+          </div>
         </div>
-       
+        <div className='flex justify-center items-center'>
+          <img className=' rounded-2xl' src={props.vehicleImage} />
+        </div>
+      </div>
+
     </div>
   )
 }

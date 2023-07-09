@@ -47,7 +47,7 @@ const Bookings = () => {
     const days= date_to_day(bookingData[key].fromDate, bookingData[key].toDate)
     const today= new Date()
     const bookingEnd= new Date(bookingData[key].toDate)
-    return <div className='grid grid-cols-3 gap-x-20 border-2 p-20 mx-10'>
+    return <div className='grid grid-cols-4  gap-x-20 shadow-[1px_4px_20px_10px_#00000024] p-20 mx-10'>
                        
                     
                         <div className=''>
@@ -67,7 +67,7 @@ const Bookings = () => {
                                    
                                     
                                     <div className='mx-80'>
-                                        <button onClick={(evt)=>handleCancleBooking(evt, bookingData[key].id)} className='px-10 py-2  rounded-full'>Delete</button>
+
                                     </div>
                                     
                                     </div>
@@ -77,7 +77,7 @@ const Bookings = () => {
                         </div>
 
                         <div>
-                            <h1 className='text-xl'>BookingDate</h1>
+                            <h1 className='text-xl'>Booking Date</h1>
                             <div className='w-full  mt-4'>
                                 {bookingData[key].fromDate} - {bookingData[key].toDate}
                             </div>
@@ -86,7 +86,15 @@ const Bookings = () => {
                         <div>
                             <h1 className='text-xl'>Status</h1>
                             <div className='mt-4'>
+                                <div className='w-[100px] border-2 rounded-full bg-gray-200 flex items-center justify-center'>
                                 {bookingData[key].bookingStatus}
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h1 className='text-xl'>Action</h1>
+                            <div className='w-full  mt-4 '>
+                            <button onClick={(evt)=>handleCancleBooking(evt, bookingData[key].id)} className='p-2  rounded-full'>Cancel Booking</button>
                             </div>
                         </div>
                         
@@ -96,7 +104,7 @@ const Bookings = () => {
 });
     return (
         <div className=''>
-           <h1 className='font-semibold text-2xl px-10'>My Bookings</h1>
+           <h1 className='font-semibold text-2xl px-10 mb-10 mt-10'>My Bookings</h1>
 
                 {displayBooking}
 

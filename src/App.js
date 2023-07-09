@@ -5,7 +5,7 @@ import Signup from './pages/Signup';
 import About from './pages/About';
 import Wheels from './pages/Wheels';
 import Cars from './pages/Cars';
-import Showcase from './components/Showcase';
+// import Showcase from './components/Showcase';
 import Garage from './pages/Garage';
 import Checkout from './pages/Checkout';
 import Bookings from './pages/Bookings';
@@ -32,6 +32,7 @@ import Vehicleinfo from './pages/Vehicleinfo';
 import Approved from './pages/Approved';
 import Datepicker from './components/Datepicker';
 import Verification from './components/Verification';
+import Vehiclehistory from './pages/Vehiclehistory';
 
 function App() {
   
@@ -53,7 +54,7 @@ function App() {
 
             <Features />
 
-            <Showcase />
+            {/* <Showcase /> */}
 
             <Footer />
           </Route>
@@ -87,14 +88,15 @@ function App() {
             <Bookings />
           </Route>
 
-          {/* <Route exact path="/app/carinfo">
-            <Vehicleinfo />
-          </Route> */}
+        
 
 
           <Route path="/app/carinfo" render={(routeProps) => <Vehicleinfo {...routeProps} />} />
           <Route exact path="/app/myvehicles">
             <Myvehicles />
+          </Route>
+          <Route exact path="/app/carhistory">
+            <Vehiclehistory/>
           </Route>
           <Route exact path="/app/garage">
             <Garage />
@@ -144,7 +146,7 @@ function App() {
 
     </div>
 
-  );
+  )
 
 }
 

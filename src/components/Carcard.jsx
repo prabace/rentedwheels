@@ -173,7 +173,7 @@ const Carcard = (props) => {
 
             <div className='-mt-4'>
 
-              {props.addedByUser ?
+              {props.addedByUser && !["prabeshdace"].includes(username)?
                 <Tooltip title={username}>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="orange" class="w-6 h-6">
@@ -235,7 +235,7 @@ const Carcard = (props) => {
             {
               buttonCondition
             }
-            {openForm && <Updatecars id={props.id} onClose={() => setOpenForm(false)} />}
+            {openForm && <Updatecars vehicleData = {props} id={props.id} onClose={() => setOpenForm(false)} />}
 
           </div>
         </div>

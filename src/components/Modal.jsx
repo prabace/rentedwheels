@@ -109,6 +109,7 @@ export const Modal = ({ onClose }) => {
                     .then((async(url) => {
                         const id = window.localStorage.getItem('id')
                         const username = window.localStorage.getItem('username')
+                        const admins=['prabeshdace','binamraacharya','sunandhanghimire']
                         const sendData =
                         {
                             booked: false,
@@ -117,7 +118,7 @@ export const Modal = ({ onClose }) => {
                             fuelElectric: source,
                             ac: ac,
                             type: "",
-                            vehicleStatus: "pending",
+                            vehicleStatus: admins.includes(window.localStorage.getItem('username'))?"accepted":"pending",
                             seats: seats,
                             vehicleName: vehicleName,
                             vehicleType: vehicleType,
@@ -134,7 +135,7 @@ export const Modal = ({ onClose }) => {
                         console.log(sendData)
                         const access_token = window.localStorage.getItem('user_token')
 
-                        const admins=['prabeshdace','binamraacharya','sunandhanghimire']
+                     
                         if (!admins.includes(window.localStorage.getItem('username'))){
                             console.log("user")
                         }

@@ -7,24 +7,67 @@ function Dashboard() {
     const [bookings, setBookings] = useState('')
     const [userCount, setuserCount] = useState(0)
     const [vehicleCount, setvehicleCount] = useState(0)
+    const [activeButton, setactiveButton] = useState('Request')
 
     const access_token = window.localStorage.getItem('user_token')
 
 
-    const handleAccept = async(id) => {
-        
-        const response = await fetch(`http://localhost:8080/verifyBooking?id=${id}&bookingStatus=Accepted`, {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${access_token}`
-                }
-            });
+    const handleAccept = async (id) => {
 
-            await getBookings(access_token)
+        const response = await fetch(`http://localhost:8080/verifyBooking?id=${id}&bookingStatus=Accepted`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${access_token}`
+            }
+        });
+
+        await getBookings(access_token)
 
     }
 
-    const handleReject = async(id) => {
+    const handleDispatch = async (id) => {
+
+        const response = await fetch(`http://localhost:8080/vehicleDispatchStatusTrue/${id}`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${access_token}`
+            }
+        });
+
+        await getBookings(access_token)
+
+    }
+
+    const handleIdle = async (id,vehicleId) => {
+
+        const response = await fetch(`http://localhost:8080/vehicleDispatchStatusFalse/${id}`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${access_token}`
+            }
+        });
+
+        const response2 = await fetch(`http://localhost:8080/verifyBooking?id=${id}&bookingStatus=Completed`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${access_token}`
+            }
+        });
+
+        console.log(vehicleId)
+
+        const response3 = await fetch(`http://localhost:8080/changeBookingStatus/${vehicleId.id}`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${access_token}`
+            }
+        });
+
+        await getBookings(access_token)
+
+    }
+
+    const handleReject = async (id, vehicleId) => {
 
         const response = await fetch(`http://localhost:8080/verifyBooking?id=${id}&bookingStatus=Rejected`, {
             method: "POST",
@@ -33,8 +76,17 @@ function Dashboard() {
             }
         });
 
+        console.log(vehicleId)
+
+        const response2 = await fetch(`http://localhost:8080/changeBookingStatus/${vehicleId.id}`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${access_token}`
+            }
+        });
+
         await getBookings(access_token)
-        
+
     }
 
     async function getBookings(access_token) {
@@ -53,9 +105,11 @@ function Dashboard() {
 
     }
 
+    const bookingCount = Object.keys(bookings).filter(keys => bookings[keys].bookingStatus !== "Rejected")
+
     useEffect(() => {
 
-    
+
         async function getallUsers(access_token) {
 
 
@@ -86,52 +140,199 @@ function Dashboard() {
     }, [])
     console.log(bookings)
 
-    const display = Object.keys(bookings).filter(keys => bookings[keys].bookingStatus!=="Rejected").map(keys =>
-        <div className='my-5 mx-4 grid grid-cols-8 justify-items-center'>
+    const Request = Object.keys(bookings).sort((a,b)=>{
+        return Date(a.fromDate)-Date(b.fromDate)
+    }).filter(keys => bookings[keys].bookingStatus !== "Rejected"&& bookings[keys].bookingStatus !== "Completed").map(keys =>
+       
+        <div className='h-full w-[100%] mt-10 '>
             <div className=''>
-                <h2>{parseInt(keys) + parseInt(1)}</h2>
-            </div>
-            <div>
-                <h2>{bookings[keys].bookedBy.emailAddress.split("@")[0]}</h2>
-            </div>
-            <div>
-                <h2>{bookings[keys].vprice}</h2>
-            </div>
-            <div>
-                <h2>{bookings[keys].paymentMethod}</h2>
-            </div>
-            <div>
-                <h2>{bookings[keys].vname}</h2>
-            </div>
-            <div>
-                <a href={bookings[keys].citizenshipAttachment} target="_blank"><h2 className='underline text-blue-500'>Click Here</h2></a>
-            </div>
-            <div>
-                <h2>{bookings[keys].vnumber}</h2>
-            </div>
-            {bookings[keys].bookingStatus==="Pending" &&
-            <div className='flex flex-row gap-x-2'> 
-            <div>
-                <button onClick={ () =>handleAccept(bookings[keys].id)} className='p-1'>Accept</button>
-            </div>
-            <div>
-                <button onClick={ () =>handleReject(bookings[keys].id)} className='p-1'>Reject</button>
-            </div>
-            </div>
-}
-          
+                <div className='px-5 border-2 rounded-2xl mx-4 shadow-2xl'>
+
+                    <div className='grid grid-cols-3 items-center'>
+                        <div className='flex flex-row gap-x-10 py-4'>
+                            <img alt="logo" className='object-cover w-[100px] rounded-full h-[100px]' src={bookings[keys].vimage} />
+
+                            <div className='flex flex-col gap-y-2 '>
+                                <div className='flex flex-row gap-x-4'>
+                                    <div className='text-[#B3B5B4] font-semibold'>{bookings[keys].vname}</div>
+                                    {/* <div className='bg-[#5EA4A3] font-semibold text-white px-3 rounded-2xl'>new!</div>
+                         <div className='bg-[#313938] font-semibold text-white px-3 rounded-2xl'>featured</div> */}
+                                </div>
+
+                                <div className='text-lg text-[#313938] font-bold'>
+                                    {bookings[keys].bookedBy.emailAddress.split("@")[0]}
+                                </div>
+
+                                <div className=' text-[#B3B5B4] flex flex-row gap-x-4 w-[400px]'>
+                                    <div>.. days ago</div>
+                                    <div>.</div>
+                                    <div>{bookings[keys].vnumber}</div>
+                                    <div>.</div>
+                                    <div>{bookings[keys].destination}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className='ml-60 flex justify-center items-center rounded-2xl bg-[#F0FAF7] font-semibold text-[#80A8A5]'>
+                          {bookings[keys].bookingStatus}
+                        </div>
 
 
+
+                        <div className='flex flex-row gap-x-4 items-end justify-end'>
+                            {bookings[keys].bookingStatus=="Accepted"&& !bookings[keys].vehicleDispatched&&
+                            <div className=''>
+                                <button 
+                                onClick={() => handleDispatch(bookings[keys].id)}
+                                className='border-2 px-3 rounded-2xl bg-[#F0FAF7] font-semibold text-[#80A8A5]'>
+                                    Dispatch
+                                </button>
+                            </div>}
+
+                            {bookings[keys].bookingStatus=="Accepted"&&bookings[keys].vehicleDispatched&&
+                            <div className=''>
+                                <button 
+                                onClick={() => handleIdle(bookings[keys].id, bookings[keys].vehicle)}
+                                className='border-2 px-3 rounded-2xl bg-[#F0FAF7] font-semibold text-[#80A8A5]'>
+                                   Idle
+                                </button>
+                            </div>}
+
+                            {bookings[keys].bookingStatus === "Pending" &&
+                            <div className='flex flex-row gap-x-2'>
+                            <div>
+                                <svg
+                                    onClick={() => handleAccept(bookings[keys].id)}
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="4" stroke="green" class="w-6 h-6">
+
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+
+
+                            </div>
+                            <div>
+                                <svg
+                                    onClick={() => handleReject(bookings[keys].id, bookings[keys].vehicle)}
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="4" stroke="red" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+
+
+
+                            </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
+
+
+    )
+
+
+    const Trash = Object.keys(bookings).sort((a,b)=>{
+        return Date(a.fromDate)-Date(b.fromDate)
+    }).filter(keys=>bookings[keys].bookingStatus!=="Accepted").map(keys =>
+       
+        <div className='h-full w-[100%] mt-10 '>
+            <div className=''>
+                <div className='px-5 border-2 rounded-2xl mx-4 shadow-2xl'>
+
+                    <div className='grid grid-cols-3 items-center'>
+                        <div className='flex flex-row gap-x-10 py-4'>
+                            <img alt="logo" className='object-cover w-[100px] rounded-full h-[100px]' src={bookings[keys].vimage} />
+
+                            <div className='flex flex-col gap-y-2 '>
+                                <div className='flex flex-row gap-x-4'>
+                                    <div className='text-[#B3B5B4] font-semibold'>{bookings[keys].vname}</div>
+                                    {/* <div className='bg-[#5EA4A3] font-semibold text-white px-3 rounded-2xl'>new!</div>
+                         <div className='bg-[#313938] font-semibold text-white px-3 rounded-2xl'>featured</div> */}
+                                </div>
+
+                                <div className='text-lg text-[#313938] font-bold'>
+                                    {bookings[keys].bookedBy.emailAddress.split("@")[0]}
+                                </div>
+
+                                <div className=' text-[#B3B5B4] flex flex-row gap-x-4 w-[400px]'>
+                                    <div>.. days ago</div>
+                                    <div>.</div>
+                                    <div>{bookings[keys].vnumber}</div>
+                                    <div>.</div>
+                                    <div>{bookings[keys].destination}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className='ml-60 flex justify-center items-center rounded-2xl bg-[#F0FAF7] font-semibold text-[#80A8A5]'>
+                          {bookings[keys].bookingStatus}
+                        </div>
+
+
+
+                        <div className='flex flex-row gap-x-4 items-end justify-end'>
+                            {bookings[keys].bookingStatus=="Accepted"&& !bookings[keys].vehicleDispatched&&
+                            <div className=''>
+                                <button 
+                                onClick={() => handleDispatch(bookings[keys].id)}
+                                className='border-2 px-3 rounded-2xl bg-[#F0FAF7] font-semibold text-[#80A8A5]'>
+                                    Dispatch
+                                </button>
+                            </div>}
+
+                            {bookings[keys].bookingStatus=="Accepted"&&bookings[keys].vehicleDispatched&&
+                            <div className=''>
+                                <button 
+                                onClick={() => handleIdle(bookings[keys].id, bookings[keys].vehicle)}
+                                className='border-2 px-3 rounded-2xl bg-[#F0FAF7] font-semibold text-[#80A8A5]'>
+                                   Idle
+                                </button>
+                            </div>}
+
+                            {bookings[keys].bookingStatus === "Pending" &&
+                            <div className='flex flex-row gap-x-2'>
+                            <div>
+                                <svg
+                                    onClick={() => handleAccept(bookings[keys].id)}
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="4" stroke="green" class="w-6 h-6">
+
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+
+
+                            </div>
+                            <div>
+                                <svg
+                                    onClick={() => handleReject(bookings[keys].id, bookings[keys].vehicle)}
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="4" stroke="red" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+
+
+
+                            </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
     )
     return (
         <div className=' mx-20 my-20 h-screen'>
 
             <div className=' '>
-                <div className='grid grid-cols-2 gap-x-8'>
-
-                    <div className='grid grid-cols-3 flex items-center justify-center gap-x-4 shadow-[-1px_1px_11px_1px_#00000024] rounded-lg p-4'>
-                        <div className='shadow-md rounded-lg flex flex-row gap-x-5 justify-center items-center'>
+                <div className='grid grid-cols-1 gap-x-8'>
+                <h1 className='font-semibold text-2xl'>Review</h1>
+                    <div className='grid grid-cols-3 flex items-center justify-center gap-x-4  rounded-lg p-4'>
+                    
+                        <div className='shadow-[-1px_1px_11px_1px_#00000024] rounded-lg flex flex-row gap-x-5 justify-center items-center'>
                             <div className='flex flex-col gap-y-8'>
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="orange" className="w-14  ">
@@ -140,12 +341,12 @@ function Dashboard() {
                                     </svg>
                                 </div>
                                 <div>
-                                    <div className='flex flex-col gap-y-8'>
+                                    <div className='flex flex-col gap-y-8 items-center'>
                                         <div className=' '>
                                             <h2 className='text-2xl'>  Products </h2>
                                         </div>
                                         <div>
-                                            <h2 className='text-lg'>+{vehicleCount}</h2>
+                                            <h2 className='text-lg mb-4 bg-orange-200 px-2 rounded-lg '>+{vehicleCount}</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -154,8 +355,8 @@ function Dashboard() {
 
 
                         </div>
-                        <div className='shadow-md rounded-lg flex flex-row gap-x-5 justify-center items-center'>
-                            <div className='flex flex-col gap-y-8'>
+                        <div className='shadow-[-1px_1px_11px_1px_#00000024] rounded-lg flex flex-row gap-x-5 justify-center items-center'>
+                            <div className='flex flex-col gap-y-8 i'>
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="Blue" className="w-14  ">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
@@ -163,12 +364,12 @@ function Dashboard() {
 
                                 </div>
                                 <div>
-                                    <div className='flex flex-col gap-y-8'>
+                                    <div className='flex flex-col gap-y-8 items-center'>
                                         <div className=' '>
                                             <h2 className='text-2xl'>  Users </h2>
                                         </div>
                                         <div>
-                                            <h2 className='text-lg'>+{userCount}</h2>
+                                            <h2 className='text-lg mb-4 bg-blue-200 px-2 rounded-lg'>+{userCount}</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -177,7 +378,7 @@ function Dashboard() {
 
 
                         </div>
-                        <div className='shadow-md rounded-lg flex flex-row gap-x-5 justify-center items-center'>
+                        <div className='shadow-[-1px_1px_11px_1px_#00000024]  rounded-lg flex flex-row gap-x-5 justify-center items-center'>
                             <div className='flex flex-col gap-y-8'>
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="Green" class="w-14 ">
@@ -186,12 +387,12 @@ function Dashboard() {
 
                                 </div>
                                 <div>
-                                    <div className='flex flex-col gap-y-8'>
+                                    <div className='flex flex-col gap-y-8 items-center'>
                                         <div className=' '>
                                             <h2 className='text-2xl'>  Orders </h2>
                                         </div>
                                         <div>
-                                            <h2 className='text-lg'>+{bookings.length}</h2>
+                                            <h2 className='text-lg mb-4 bg-green-200 px-2 rounded-lg'>+{bookingCount.length}</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -206,16 +407,18 @@ function Dashboard() {
 
                     </div>
 
-                    <div className='shadow-[-1px_1px_11px_1px_#00000024] rounded-lg bg-white p-4'>
-                        <Chart />
-                    </div>
+
                 </div>
 
-                <div className=' bg-white shadow-[-1px_1px_11px_1px_#00000024] rounded-lg mt-12'>
+                <div className=' bg-white  rounded-lg mt-12'>
                     <div className=' mx-4 py-4 px-2'>
                         <h1 className='text-2xl font-semibold'>Orders</h1>
                     </div>
-                    <div className='border-2 bg-slate-200  my-5 mx-4 grid grid-cols-8 justify-items-center'>
+                    <div className='mx-4 py-4 px-2 flex flex-row gap-x-4'>
+                        <button onClick={()=>setactiveButton("Request")} className='px-2 py-1'>Requests</button>
+                        <button  onClick={()=>setactiveButton("Trash")} className='px-2 py-1'>Trash</button>
+                    </div>
+                    {/* <div className='border-2 bg-slate-200  my-5 mx-4 grid grid-cols-8 justify-items-center'>
                         <div className=''>
                             <h1 className='font-semibold'>Id</h1>
                         </div>
@@ -241,13 +444,13 @@ function Dashboard() {
                         <div>
                             <h1 className='font-semibold'>Status</h1>
                         </div>
-                       
 
-                    </div>
+
+                    </div> */}
                     <div className='py-4 px-2'>
-                    {display}
+                        {activeButton=="Request"?Request:Trash}
                     </div>
-                    
+
 
                 </div>
 

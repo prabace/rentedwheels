@@ -40,7 +40,7 @@ async function setuser(usersData, email){
 }
 
 const checkSignIn=async(data,evt)=>{
-  evt.preventDefault()
+ 
   console.log(email,password,data)
   // const token = window.localStorage.getItem("token")
   const response1=  await fetch(`http://localhost:8080/api/login?username=${data.email.split('@')[0]}&password=${data.password}`, {
@@ -54,7 +54,9 @@ const checkSignIn=async(data,evt)=>{
   
   
   })
+  console.log(response1)
   const result1= await response1.json()
+  console.log(result1)
   const access_token = result1.access_token
   
   console.log(access_token)

@@ -47,8 +47,9 @@ const Navbar = () => {
                         <Link to="/app/cars">Garage</Link>
                     </li>
                     <li>
-                        <Link to="/app/users">Users</Link>
+                        <Link to="/app/users">My Vehicles</Link>
                     </li>
+                  
                 </ul>
 
 
@@ -76,7 +77,8 @@ const Navbar = () => {
                             {userName}
                             </div>
                            <a href="http://localhost:3000/app/bookings"> <li className="hover:bg-gray-200 w-full">My Bookings</li></a>
-                           <a href="http://localhost:3000/app/myvehicles"> <li className="hover:bg-gray-200 w-full">My Vehicles</li></a>
+                           <a href="http://localhost:3000/app/carhistory"> <li className="hover:bg-gray-200 w-full"><Link to="/app/carhistory">Vehicle Tracker</Link></li></a>
+                           {/* <a href="http://localhost:3000/app/myvehicles"> <li className="hover:bg-gray-200 w-full">My Vehicles</li></a> */}
                             <li onClick={handleLogOut} className="hover:bg-gray-200 w-full">Log Out</li>
 
 

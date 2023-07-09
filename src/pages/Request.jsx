@@ -64,6 +64,9 @@ function Request({history}) {
     value={vehicleData[keys].vehicleRating}
     id={vehicleData[keys].id}
     img={vehicleData[keys].vehicleImage}
+    addedByUser={vehicleData[keys].addedByUser}
+    username={vehicleData[keys].username}
+    status={vehicleData[keys].vehicleStatus}
     vehicleRating={vehicleData[keys].vehicleRating}
     vehicleReview={vehicleData[keys].vehicleReview}
     seats= {vehicleData[keys].seats}
@@ -104,8 +107,11 @@ function Request({history}) {
       title={vehicleData[keys].vehicleName}
       img={vehicleData[keys].vehicleImage}
       id={vehicleData[keys].id}
+      username={vehicleData[keys].username}
       vehicleRating={vehicleData[keys].vehicleRating}
       vehicleReview={vehicleData[keys].vehicleReview}
+      addedByUser={vehicleData[keys].addedByUser}
+    status={vehicleData[keys].vehicleStatus}
       seats= {vehicleData[keys].seats}
       ac= {vehicleData[keys].ac}
       source= {vehicleData[keys].fuelElectric}

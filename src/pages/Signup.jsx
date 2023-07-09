@@ -81,8 +81,8 @@ const Signup = ({ history }) => {
   }
 
   const registerUser = async (data,evt) => {
-    setSnackbarOpen(true);
-    evt.preventDefault();
+   
+    
     const sendData =
     {
       address: '',
@@ -113,8 +113,18 @@ const Signup = ({ history }) => {
     
     })
    
+    const {ERROR_MSG} = await response.json()
     
-    history.push('/app/signin')
+    if(ERROR_MSG) {alert("Email already exists.")}
+    else{
+      setSnackbarOpen(true);
+      setTimeout(() => {
+        history.push('/app/signin')
+      }, 600);
+      
+    }
+    
+    
   }
 
 

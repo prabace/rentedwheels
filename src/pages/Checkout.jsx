@@ -388,6 +388,7 @@ const Checkout = ({ location, history }) => {
                                         country='np'
                                         value={phone}
                                         onChange={setPhone}
+                                        
 
                                     />
                                 </div>
